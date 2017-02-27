@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">TPL7</string>
+    <string name="new_athlete">New Athlete</string>
+    <string name="settings">Settings</string>
+    <string name="subtitle_format">%1$s athletes</string>
+    <string name="athlete_statistics">Athlete Statistics</string>
+    <string name="name">First Name</string>
+    <string name="_2k">2k</string>
+    <string name="link_athlete_contact">Link Athlete Contact</string>
+    <string name="contact_athlete">Contact Athlete</string>
+    <string name="_6k">6k</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="starboard">Starboard</string>
+    <string name="port">Port</string>
+    <string name="both">Both</string>
+    <string name="coxswain">Coxswain</string>
+    <string name="last_name">Last Name</string>
+</resources>
