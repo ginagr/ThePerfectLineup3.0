@@ -115,6 +115,8 @@ public class AthleteLab {
         values.put(AthleteTable.Cols.WEIGHT, athlete.getWeight());
         values.put(AthleteTable.Cols.TWOKMIN, athlete.getTwokMin());
         values.put(AthleteTable.Cols.TWOKSEC, athlete.getTwokSec());
+        values.put(AthleteTable.Cols.CONTACT, athlete.getLinkContact());
+        values.put(AthleteTable.Cols.INLINEUP, athlete.getInLineup());
 
         return values;
     }
@@ -145,5 +147,15 @@ public class AthleteLab {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    public void resetAthletesInLineup() throws ParseException {
+        List<Athlete> athletes = getAthletes();
+        for(int i = 0; i < athletes.size(); i++){
+            Athlete athlete = athletes.get(i);
+            athlete.setInLineup(false);
+            updateAthlete(athlete);
+        }
+
     }
 }

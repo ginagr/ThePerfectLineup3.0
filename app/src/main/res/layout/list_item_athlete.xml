@@ -3,7 +3,8 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/list_item_relative_layout">
 
     <!--<Button-->
         <!--android:id="@+id/list_item_athlete_image_button_view"-->
@@ -46,13 +47,13 @@
 
     <ImageView
         android:id="@+id/athlete_to_lineup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="55dp"
         android:gravity="center"
         android:padding="5dp"
         android:layout_alignParentRight="true"
         app:srcCompat="@android:drawable/ic_menu_set_as"
-        android:tint="@color/colorAccent"/>
+        android:tint="@color/colorAccent"
+        android:layout_height="55dp"/>
 
 
 </RelativeLayout>

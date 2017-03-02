@@ -24,6 +24,8 @@ public class AthleteCursorWrapper extends CursorWrapper {
         int weight = getInt(getColumnIndex(AthleteTable.Cols.WEIGHT));
         int twokMin = getInt(getColumnIndex(AthleteTable.Cols.TWOKMIN));
         int twokSec = getInt(getColumnIndex(AthleteTable.Cols.TWOKSEC));
+        String contact = getString(getColumnIndex(AthleteTable.Cols.CONTACT));
+        int inLineup = getInt(getColumnIndex(AthleteTable.Cols.INLINEUP));
 
         Athlete athlete = new Athlete(UUID.fromString(uuid), firstName, lastName);
         athlete.setPosition(position);
@@ -32,6 +34,8 @@ public class AthleteCursorWrapper extends CursorWrapper {
         athlete.setWeight(weight);
         athlete.setTwokMin(twokMin);
         athlete.setTwokSec(twokSec);
+        athlete.setLinkContact(contact);
+        athlete.setInLineup(inLineup != 0);
 
         //TODO: change 2k to time instead of ints
 

@@ -306,25 +306,6 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-//    private String getAthleteInfo() {
-//        String solvedString = null;
-//        if (athlete.isSolved()) {
-//            solvedString = getString(R.string.crime_report_solved);
-//        } else {
-//            solvedString = getString(R.string.crime_report_unsolved);
-//        }
-//        String dateFormat = "EEE, MMM dd";
-//        String dateString = DateFormat.format(dateFormat, athlete.getDate()).toString();
-//        String suspect = athlete.getSuspect();
-//        if (suspect == null) {
-//            suspect = getString(R.string.crime_report_no_suspect);
-//        } else {
-//            suspect = getString(R.string.crime_report_suspect, suspect);
-//        }
-//        String report = getString(R.string.crime_report, athlete.getTitle(), dateString, solvedString, suspect);
-//        return report;
-//    }
-
     private void updatePhotoView() {
         if (photo[0] == null || !photo[0].exists()) {
             photoView[0].setImageDrawable(null);

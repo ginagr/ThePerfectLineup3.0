@@ -1,6 +1,7 @@
 package ggr.tpl7;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +9,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,10 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.QuickContactBadge;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AthleteListFragment extends Fragment {
@@ -33,20 +33,21 @@ public class AthleteListFragment extends Fragment {
     private AthleteAdapter adapter;
     private boolean mSubtitleVisible;
 
-    private String[] athletes = new String[9];
+    private String[] boatAthletes = new String[9];
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        athletes = getActivity().getIntent().getStringArrayExtra(EXTRA_ATHLETE_ARRAY);
-        if(athletes != null) {
-            Log.e("AthleteListFragment", "Found athlete after intent" + athletes[0]);
-        } else {
-            Log.e("AthleteListFragment", "Found athlete after intent 0");
+        boatAthletes = getActivity().getIntent().getStringArrayExtra(EXTRA_ATHLETE_ARRAY);
+        if(boatAthletes == null){
+            try {
+                AthleteLab.get(getContext()).resetAthletesInLineup();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
     @Override
@@ -105,12 +106,7 @@ public class AthleteListFragment extends Fragment {
                 return true;
             case R.id.menu_item_goto_lineup:
                 Intent i = new Intent(getActivity(), LineupActivity.class);
-                if(athletes != null) {
-                    Log.e("AthleteListFragment", "Found athlete before intent" + athletes[0]);
-                } else {
-                    Log.e("AthleteListFragment", "Found athlete before intent 0");
-                }
-                i.putExtra(EXTRA_ATHLETE_ARRAY, athletes);
+                i.putExtra(EXTRA_ATHLETE_ARRAY, boatAthletes);
                 startActivity(i);
             default:
                 return super.onOptionsItemSelected(item);
@@ -150,6 +146,7 @@ public class AthleteListFragment extends Fragment {
         private QuickContactBadge imageButtonView;
         private ImageView inLineupImageView;
         private Drawable mDrawable;
+        private RelativeLayout athleteRelativeLayout;
 
         private Athlete athlete;
 
@@ -161,6 +158,7 @@ public class AthleteListFragment extends Fragment {
             sideTextView = (TextView) itemView.findViewById(R.id.list_item_athlete_subtitle_text_view);
             imageButtonView = (QuickContactBadge) itemView.findViewById(R.id.user_image_icon);
             inLineupImageView = (ImageView) itemView.findViewById(R.id.athlete_to_lineup);
+            athleteRelativeLayout = (RelativeLayout) itemView.findViewById(R.id.list_item_relative_layout);
 
         }
 
@@ -189,14 +187,15 @@ public class AthleteListFragment extends Fragment {
             }
 
             if(athlete.getInLineup()) {
-               inLineupImageView.setColorFilter(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
+                inLineupImageView.setColorFilter(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
+                athleteRelativeLayout.setBackgroundColor(Color.parseColor("#d5d5d6"));
             }else {
                 inLineupImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), LineupActivity.class);
                         intent.putExtra(EXTRA_ATHLETE_ID, athlete.getId());
-                        intent.putExtra(EXTRA_ATHLETE_ARRAY, athletes);
+                        intent.putExtra(EXTRA_ATHLETE_ARRAY, boatAthletes);
                         startActivity(intent);
 
                     }

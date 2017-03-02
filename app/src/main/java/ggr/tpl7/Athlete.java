@@ -14,7 +14,7 @@ public class Athlete {
     private int weight = 0;
     private int twokMin = 0;
     private double twokSec = 0; //TODO: change database
-    private String linkContact; //TODO: add to database
+    private String linkContact;
     private boolean inLineup = false;
 
     public Athlete() {
