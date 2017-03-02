@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
+import android.util.Log;
 
 import ggr.tpl7.database.AthleteBaseHelper;
 import ggr.tpl7.database.AthleteCursorWrapper;
@@ -131,5 +132,18 @@ public class AthleteLab {
         );
 
         return new AthleteCursorWrapper(cursor);
+    }
+
+    public void deleteAthlete(UUID id){
+        try {
+            Athlete athlete  = getAthlete(id);
+            String sid = id.toString();
+            String whereClause = "_id" + "=?";
+            Log.d("", "Delete " + athlete.getFirstName());
+            database.delete(AthleteTable.NAME, AthleteTable.Cols.UUID + " = ?", new String[]{sid});
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

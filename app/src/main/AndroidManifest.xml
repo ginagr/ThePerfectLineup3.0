@@ -2,12 +2,29 @@
 <manifest package="ggr.tpl7"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+                     android:maxSdkVersion="18"
+        />
+    <uses-feature android:name="android.hardware.camera"
+                  android:required="false"
+        />
+
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LineupActivity">
+        <activity android:name=".LineupActivity"
+            android:label="Create Lineup">
+
+        </activity>
+        <activity
+            android:name=".AthletePagerActivity"
+            android:label="Roster"
+            android:parentActivityName=".AthleteListActivity">
+        </activity>
+        <activity android:name=".AthleteListActivity"
+                  android:label="Roster">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

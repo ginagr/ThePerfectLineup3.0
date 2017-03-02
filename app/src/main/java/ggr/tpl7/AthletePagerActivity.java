@@ -31,7 +31,7 @@ public class AthletePagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_athlete_pager);
 
-        UUID crimeId = (UUID) getIntent()
+        UUID athleteId = (UUID) getIntent()
                 .getSerializableExtra(EXTRA_ATHLETE_ID);
 
         viewPager = (ViewPager) findViewById(R.id.activity_athlete_pager_view_pager);
@@ -73,7 +73,7 @@ public class AthletePagerActivity extends AppCompatActivity {
         });
 
         for (int i = 0; i < athletes.size(); i++) {
-            if (athletes.get(i).getId().equals(crimeId)) {
+            if (athletes.get(i).getId().equals(athleteId)) {
                 viewPager.setCurrentItem(i);
                 break;
             }

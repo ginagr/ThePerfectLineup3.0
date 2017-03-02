@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:title="Lineup">
+
+    <item
+        android:id="@+id/menu_item_goto_roster"
+        android:title="Go To Roster"
+        app:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_sort_by_size"/>
+    <!--<item-->
+        <!--android:id="@+id/menu_item_show_subtitle"-->
+        <!--android:title="@string/show_subtitle"-->
+        <!--app:showAsAction="ifRoom"/>-->
+
+</menu>

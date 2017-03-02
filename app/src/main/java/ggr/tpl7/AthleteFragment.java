@@ -2,6 +2,7 @@ package ggr.tpl7;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -14,9 +15,11 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +29,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -40,7 +44,6 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
 
     private static final int REQUEST_CONTACT = 1;
     private static final int REQUEST_PHOTO= 2;
-
 
     private Athlete athlete;
     private File[] photo;
@@ -63,6 +66,7 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
         try {
             athlete = AthleteLab.get(getActivity()).getAthlete(athleteId);
         } catch (ParseException e) {
+            athlete = new Athlete();
             e.printStackTrace();
         }
 
@@ -108,45 +112,49 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
             public void afterTextChanged(Editable s) { }
         });
 
-        EditText twokField = (EditText) v.findViewById(R.id.twok_fragment_edit_text);
-        twokField.setText(athlete.getTwokMin() + ":" + athlete.getTwokSec());
-        twokField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //TODO:set 2k also 6k
-            }
-            @Override
-            public void afterTextChanged(Editable s) { }
-        });
+//        EditText twokField = (EditText) v.findViewById(R.id.twok_fragment_edit_text);
+//        twokField.setText(athlete.getTwokMin() + ":" + athlete.getTwokSec());
+//        twokField.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                //TODO:set 2k also 6k
+//            }
+//            @Override
+//            public void afterTextChanged(Editable s) { }
+//        });
 
-        EditText weightField = (EditText) v.findViewById(R.id.weight_fragment_edit_text);
-        weightField.setText(athlete.getWeight());
-        weightField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                athlete.setWeight(Integer.parseInt(s.toString()));
-            }
-            @Override
-            public void afterTextChanged(Editable s) { }
-        });
+//        EditText weightField = (EditText) v.findViewById(R.id.weight_fragment_edit_text);
+//        try {
+//            weightField.setText(athlete.getWeight());
+//        }catch (Exception e) {
+//            Log.e("AthleteFragment", "Could not find athlete weight: " + athlete.getWeight());
+//        }
+//        weightField.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                athlete.setWeight(Integer.parseInt(s.toString()));
+//            }
+//            @Override
+//            public void afterTextChanged(Editable s) { }
+//        });
 
-        EditText heightField = (EditText) v.findViewById(R.id.height_fragment_edit_text);
-        heightField.setText(athlete.getFeet() +  "' " + athlete.getInches());
-        heightField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                athlete.setInches(Integer.parseInt(s.toString()));
-                //TODO: change to one height
-            }
-            @Override
-            public void afterTextChanged(Editable s) { }
-        });
+//        EditText heightField = (EditText) v.findViewById(R.id.height_fragment_edit_text);
+//        if(athlete.getFeet() != 0) { heightField.setText(athlete.getFeet() +  "' " + athlete.getInches()); }
+//        heightField.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                athlete.setInches(Integer.parseInt(s.toString()));
+//                //TODO: change to one height
+//            }
+//            @Override
+//            public void afterTextChanged(Editable s) { }
+//        });
 
         RadioGroup radioGroup = (RadioGroup) v.findViewById(R.id.radio_fragment);
         if(athlete.getPosition() < 1){
@@ -172,20 +180,53 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
             }
         }
 
-        //TODO:finish contact athlete
-//        Button contactButton = (Button) v.findViewById(R.id.contact_athlete_button);
-//        contactButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent i = new Intent(Intent.ACTION_SEND);
-//                i.setType("text/plain");
-//                i.putExtra(Intent.EXTRA_TEXT, getAthleteInfo());
-//                i.putExtra(Intent.EXTRA_SUBJECT,
-//                        getString(R.string.crime_report_subject));
-//                i = Intent.createChooser(i, getString(R.string.send_report));
-//
-//                startActivity(i);
-//            }
-//        });
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.starboard_radio:
+                            athlete.setPosition(4);
+                        break;
+                    case R.id.port_radio:
+                            athlete.setPosition(3);
+                        break;
+                    case R.id.both_radio:
+                            athlete.setPosition(2);
+                        break;
+                    case R.id.cox_radio:
+                            athlete.setPosition(1);
+                        break;
+                }
+            }
+        });
+
+
+        Button contactButton = (Button) v.findViewById(R.id.delete_athlete_button);
+        contactButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setMessage("Are you sure you want to delete this athlete?");
+                alertDialogBuilder.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                Intent i = new Intent(getActivity(), AthleteListActivity.class);
+                                startActivity(i);
+                                AthleteLab.get(getActivity()).deleteAthlete(athlete.getId());
+                                Toast.makeText(getActivity(),"Deleted Athlete",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
 
         final Intent pickContact = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
@@ -229,28 +270,6 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
         updatePhotoView();
 
         return v;
-    }
-
-    public void onRadioButtonClicked(View view) {
-        boolean checked = ((RadioButton) view).isChecked();
-        switch (view.getId()) {
-            case R.id.starboard_radio:
-                if (checked)
-                    athlete.setPosition(4);
-                break;
-            case R.id.port_radio:
-                if (checked)
-                    athlete.setPosition(3);
-                break;
-            case R.id.both_radio:
-                if (checked)
-                    athlete.setPosition(2);
-                break;
-            case R.id.cox_radio:
-                if (checked)
-                    athlete.setPosition(1);
-                break;
-        }
     }
 
     @Override

@@ -1,19 +1,29 @@
 <resources>
-    <string name="app_name">TPL7</string>
+    <string name="app_name">The Perfect Lineup</string>
     <string name="new_athlete">New Athlete</string>
     <string name="settings">Settings</string>
     <string name="subtitle_format">%1$s athletes</string>
     <string name="athlete_statistics">Athlete Statistics</string>
     <string name="name">First Name</string>
-    <string name="_2k">2k</string>
     <string name="link_athlete_contact">Link Athlete Contact</string>
     <string name="contact_athlete">Contact Athlete</string>
-    <string name="_6k">6k</string>
-    <string name="weight">Weight</string>
-    <string name="height">Height</string>
+    <string name="height">Height: </string>
     <string name="starboard">Starboard</string>
     <string name="port">Port</string>
     <string name="both">Both</string>
     <string name="coxswain">Coxswain</string>
     <string name="last_name">Last Name</string>
+    <string name="_2k_">2k: </string>
+    <string name="_6k_">6k: </string>
+    <string name="weight">Weight:</string>
+    <string name="delete_athlete">Delete Athlete</string>
+    <string name="_8_seat">8 Seat</string>
+    <string name="_7_seat">7 Seat</string>
+    <string name="_6_seat">6 Seat</string>
+    <string name="_5_seat">5 Seat</string>
+    <string name="_4_seat">4 Seat</string>
+    <string name="_3_seat">3 Seat</string>
+    <string name="_2_seat">2 Seat</string>
+    <string name="_1_seat">1 Seat</string>
+    <string name="current_rower">Current Rower:</string>
 </resources>

@@ -6,30 +6,32 @@ public class Athlete {
 
     private static final int MAXPHOTOS = 1;
     private UUID id;
-    private String firstName;
-    private String lastName;
-    private int position; //1 = Cox, 2 = Port, 3 = Starboard  TODO: turn to enum
-    private int feet;
-    private int inches;
-    private int weight;
-    private int twokMin;
-    private double twokSec;
+    private String firstName = "";
+    private String lastName = "";
+    private int position = 0; //1 = Cox, 2 = Port, 3 = Starboard  TODO: turn to enum
+    private int feet = 0;
+    private int inches = 0;
+    private int weight = 0;
+    private int twokMin = 0;
+    private double twokSec = 0; //TODO: change database
     private String linkContact; //TODO: add to database
+    private boolean inLineup = false;
 
     public Athlete() {
         id = UUID.randomUUID();
-        firstName = "";
-        lastName = "";
-        twokMin = 0;
-        twokSec = 0;
     }
 
     public Athlete(UUID id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        position = 0;
+        feet = 0;
+        inches = 0;
+        weight = 0;
         twokMin = 0;
         twokSec = 0;
+        inLineup = false;
     }
 
     public Athlete(String firstName, String lastName, int position
@@ -42,7 +44,8 @@ public class Athlete {
         this.weight = weight;
         this.twokMin = twokMin;
         this.twokSec = twokSec;
-        this.id = UUID.randomUUID();
+        id = UUID.randomUUID();
+        inLineup = false;
     }
 
     public String[] getPhotoFilenames() {
@@ -129,6 +132,14 @@ public class Athlete {
 
     public void setLinkContact(String linkContact) {
         this.linkContact = linkContact;
+    }
+
+    public boolean getInLineup() {
+        return inLineup;
+    }
+
+    public void setInLineup(boolean inLineup) {
+        this.inLineup = inLineup;
     }
 
 }

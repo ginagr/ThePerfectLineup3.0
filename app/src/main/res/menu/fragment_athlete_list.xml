@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:title="Roster">
     <item
         android:id="@+id/menu_item_new_athlete"
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/new_athlete"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_item_goto_lineup"
+        android:title="Go To Lineup"
+        app:showAsAction="always"
+        android:icon="?android:attr/actionModePasteDrawable"/>
     <!--<item-->
         <!--android:id="@+id/menu_item_show_subtitle"-->
         <!--android:title="@string/show_subtitle"-->

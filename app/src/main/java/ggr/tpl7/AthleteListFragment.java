@@ -1,35 +1,52 @@
 package ggr.tpl7;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AthleteListFragment extends Fragment {
 
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
+    private static final String EXTRA_ATHLETE_ID = "ggr.tpl17.athlete_id";
+    private static final String EXTRA_ATHLETE_ARRAY = "ggr.tpl17.athlete_array";
 
     private RecyclerView athleteRecyclerView;
     private AthleteAdapter adapter;
     private boolean mSubtitleVisible;
 
+    private String[] athletes = new String[9];
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        athletes = getActivity().getIntent().getStringArrayExtra(EXTRA_ATHLETE_ARRAY);
+        if(athletes != null) {
+            Log.e("AthleteListFragment", "Found athlete after intent" + athletes[0]);
+        } else {
+            Log.e("AthleteListFragment", "Found athlete after intent 0");
+        }
+
     }
 
     @Override
@@ -86,6 +103,15 @@ public class AthleteListFragment extends Fragment {
                         .newIntent(getActivity(), athlete.getId());
                 startActivity(intent);
                 return true;
+            case R.id.menu_item_goto_lineup:
+                Intent i = new Intent(getActivity(), LineupActivity.class);
+                if(athletes != null) {
+                    Log.e("AthleteListFragment", "Found athlete before intent" + athletes[0]);
+                } else {
+                    Log.e("AthleteListFragment", "Found athlete before intent 0");
+                }
+                i.putExtra(EXTRA_ATHLETE_ARRAY, athletes);
+                startActivity(i);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -120,8 +146,10 @@ public class AthleteListFragment extends Fragment {
             implements View.OnClickListener {
 
         private TextView nameTextView;
-        private TextView twokTextView;
-        private Button imageButtonView;
+        private TextView sideTextView;
+        private QuickContactBadge imageButtonView;
+        private ImageView inLineupImageView;
+        private Drawable mDrawable;
 
         private Athlete athlete;
 
@@ -130,16 +158,52 @@ public class AthleteListFragment extends Fragment {
             itemView.setOnClickListener(this);
 
             nameTextView = (TextView) itemView.findViewById(R.id.list_item_athlete_name_text_view);
-            twokTextView = (TextView) itemView.findViewById(R.id.list_item_athlete_twok_text_view);
-            imageButtonView = (Button) itemView.findViewById(R.id.list_item_athlete_image_button_view);
+            sideTextView = (TextView) itemView.findViewById(R.id.list_item_athlete_subtitle_text_view);
+            imageButtonView = (QuickContactBadge) itemView.findViewById(R.id.user_image_icon);
+            inLineupImageView = (ImageView) itemView.findViewById(R.id.athlete_to_lineup);
+
         }
 
         public void bindAthlete(Athlete bAthlete) {
             athlete = bAthlete;
             String full = athlete.getFirstName() + " " + athlete.getLastName();
             nameTextView.setText(full);
-            String twok = athlete.getTwokMin() + ":" + athlete.getTwokSec();
-            twokTextView.setText(twok);
+
+            switch (athlete.getPosition()){
+                case 4 :
+                    String pos = "Starboard";
+                    sideTextView.setText(pos);
+                    break;
+                case 3:
+                    pos = "Port";
+                    sideTextView.setText(pos);
+                    break;
+                case 2:
+                    pos = "Both";
+                    sideTextView.setText(pos);
+                    break;
+                case 1:
+                    pos = "Coxswain";
+                    sideTextView.setText(pos);
+                    break;
+            }
+
+            if(athlete.getInLineup()) {
+               inLineupImageView.setColorFilter(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
+            }else {
+                inLineupImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), LineupActivity.class);
+                        intent.putExtra(EXTRA_ATHLETE_ID, athlete.getId());
+                        intent.putExtra(EXTRA_ATHLETE_ARRAY, athletes);
+                        startActivity(intent);
+
+                    }
+                });
+            }
+
+
             //TODO:get image path
         }
 
