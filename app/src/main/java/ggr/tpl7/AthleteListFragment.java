@@ -28,17 +28,23 @@ public class AthleteListFragment extends Fragment {
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
     private static final String EXTRA_ATHLETE_ID = "ggr.tpl17.athlete_id";
     private static final String EXTRA_ATHLETE_ARRAY = "ggr.tpl17.athlete_array";
+    private static final String EXTRA_BOAT_POSITION = "ggr.tpl17.boat_position";
+    private static final String EXTRA_BOAT_ATHLETE_ID = "ggr.tpl17.boat_athlete_id";
 
     private RecyclerView athleteRecyclerView;
     private AthleteAdapter adapter;
     private boolean mSubtitleVisible;
 
-    private String[] boatAthletes = new String[9];
+    private String[] boatAthletes = new String[45];
+
+    private int boatPosition;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        boatPosition = getActivity().getIntent().getIntExtra(EXTRA_BOAT_POSITION, -1);
 
         boatAthletes = getActivity().getIntent().getStringArrayExtra(EXTRA_ATHLETE_ARRAY);
         if(boatAthletes == null){
@@ -108,6 +114,7 @@ public class AthleteListFragment extends Fragment {
                 Intent i = new Intent(getActivity(), LineupActivity.class);
                 i.putExtra(EXTRA_ATHLETE_ARRAY, boatAthletes);
                 startActivity(i);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -196,6 +203,9 @@ public class AthleteListFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), LineupActivity.class);
                         intent.putExtra(EXTRA_ATHLETE_ID, athlete.getId());
                         intent.putExtra(EXTRA_ATHLETE_ARRAY, boatAthletes);
+                        if(boatPosition!= -1){
+                            intent.putExtra(EXTRA_BOAT_POSITION, boatPosition);
+                        }
                         startActivity(intent);
 
                     }

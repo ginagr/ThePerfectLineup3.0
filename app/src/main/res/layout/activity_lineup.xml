@@ -101,109 +101,159 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_toRightOf="@id/image_boat_layout">
 
         <TextView
             android:id="@+id/lineup_cox_text_name_view"
             android:layout_width="match_parent"
-            android:textStyle="bold"
             android:text="@string/coxswain"
-            android:padding="4dp"
+            android:padding="13dp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="16sp"
+            android:fontFamily="sans-serif"
             android:layout_height="55dp"/>
         <TextView
             android:id="@+id/lineup_8_text_name_view"
             android:layout_width="match_parent"
-            android:textStyle="bold"
             android:text="@string/_8_seat"
-            android:padding="4dp"
+            android:padding="13dp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="16sp"
+            android:fontFamily="sans-serif"
             android:layout_height="55dp"/>
         <TextView
             android:id="@+id/lineup_7_text_name_view"
             android:layout_width="match_parent"
-            android:textStyle="bold"
             android:text="@string/_7_seat"
-            android:padding="4dp"
+            android:padding="13dp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="16sp"
             android:layout_height="55dp"/>
+
         <TextView
             android:id="@+id/lineup_6_text_name_view"
             android:layout_width="match_parent"
-            android:textStyle="bold"
             android:text="@string/_6_seat"
-            android:padding="4dp"
+            android:padding="13dp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="16sp"
             android:layout_height="55dp"/>
         <TextView
             android:id="@+id/lineup_5_text_name_view"
             android:layout_width="match_parent"
-            android:textStyle="bold"
             android:text="@string/_5_seat"
-            android:padding="4dp"
+            android:padding="13dp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="16sp"
             android:layout_height="55dp"/>
         <TextView
             android:id="@+id/lineup_4_text_name_view"
             android:layout_width="match_parent"
-            android:textStyle="bold"
             android:text="@string/_4_seat"
-            android:padding="4dp"
+            android:padding="13dp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="16sp"
             android:layout_height="55dp"/>
         <TextView
             android:id="@+id/lineup_3_text_name_view"
             android:layout_width="match_parent"
-            android:textStyle="bold"
             android:text="@string/_3_seat"
-            android:padding="4dp"
+            android:padding="13dp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="16sp"
             android:layout_height="55dp"/>
         <TextView
             android:id="@+id/lineup_2_text_name_view"
             android:layout_width="match_parent"
-            android:textStyle="bold"
             android:text="@string/_2_seat"
-            android:padding="4dp"
+            android:padding="13dp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="16sp"
             android:layout_height="55dp"/>
         <TextView
             android:id="@+id/lineup_1_text_name_view"
             android:layout_width="match_parent"
-            android:textStyle="bold"
             android:text="@string/_1_seat"
-            android:padding="4dp"
+            android:padding="13dp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="16sp"
-            android:layout_height="55dp"
-            />
+            android:layout_height="55dp"/>
     </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:text="@string/boat_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/boat_one"
+        android:layout_alignStart="@+id/boat_one"
+        android:id="@+id/boat_two"
+        android:backgroundTint="@color/colorPrimaryDark"/>
+
+    <Button
+        android:text="@string/boat_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/boat_two"
+        android:layout_alignEnd="@+id/boat_two"
+        android:id="@+id/boat_three"
+        android:backgroundTint="@color/colorPrimaryDark"/>
+
+    <Button
+        android:text="@string/boat_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/boat_three"
+        android:layout_alignStart="@+id/boat_three"
+        android:id="@+id/boat_four"
+        android:backgroundTint="@color/colorPrimaryDark"/>
+
+    <Button
+        android:text="@string/boat_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/boat_four"
+        android:layout_alignStart="@+id/boat_four"
+        android:id="@+id/boat_five"
+        android:backgroundTint="@color/colorPrimaryDark"/>
+
+    <Button
+        android:text="@string/boat_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/boat_one"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_above="@+id/tableLayout"
+        android:layout_alignParentEnd="true"/>
 
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/square"
         android:padding="5dp"
+        android:id="@+id/tableLayout"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="12dp">
 
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
                 android:text="@string/current_rower"
-                android:textStyle="normal|bold"/>
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
         </TableRow>
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         <TextView
             android:id="@+id/current_rower_name"
-            android:text="No Rower Selected"
-            />
+            android:text="@string/no_rower_selected"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
         </TableRow>
         <TableRow
             android:layout_width="wrap_content"
@@ -211,7 +261,7 @@
             <TextView
                 android:id="@+id/current_rower_side"
                 android:text=""
-                />
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
         </TableRow>
     </TableLayout>
 

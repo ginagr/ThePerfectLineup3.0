@@ -2,29 +2,30 @@ package ggr.tpl7;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class LineupActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String EXTRA_ATHLETE_ID = "ggr.tpl17.athlete_id";
     private static final String EXTRA_ATHLETE_ARRAY = "ggr.tpl17.athlete_array";
+    private static final String EXTRA_BOAT_POSITION = "ggr.tpl17.boat_position";
+    private static final String EXTRA_BOAT_ATHLETE_ID = "ggr.tpl17.boat_athlete_id";
 
-    private String[] boatAthletes = new String[9];
+
+    private String[] boatAthletes = new String[45];
 
     private boolean fromList = false;
     private Athlete athlete;
@@ -33,47 +34,73 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
     private TextView currNameTextView;
     private TextView currSideTextView;
 
-    private Button[] buttons;
+    private Button[] lineupButtons;
     private TextView[] texts;
+    private Button[] boatButtons;
+
+    private int athleteBoatPosition;
+    private int currentBoat = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lineup);
 
+        athleteBoatPosition = getIntent().getIntExtra(EXTRA_BOAT_POSITION, -1);
         UUID athleteId = (UUID) getIntent().getSerializableExtra(EXTRA_ATHLETE_ID);
         boatAthletes = getIntent().getStringArrayExtra(EXTRA_ATHLETE_ARRAY);
 
         listen();
 
-        if(athleteId != null) {
-            try {
-                athlete = AthleteLab.get(this).getAthlete(athleteId);
-                fromList = true;
-                athleteName = athlete.getFirstName();
-                if (athlete.getLastName() != null && !athlete.getLastName().isEmpty()) {
-                    athleteName = athlete.getFirstName() + " " + athlete.getLastName().charAt(0);
-                }
-                addAthlete();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if(boatAthletes != null) {
+        if (boatAthletes != null) {
             try {
                 setUp();
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         } else {
-            boatAthletes = new String[9];
+            boatAthletes = new String[45];
             try {
                 AthleteLab.get(this).resetAthletesInLineup();
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
+
+        if((athleteId != null) && (athleteBoatPosition != -1)){
+            try {
+                Athlete currAthlete = AthleteLab.get(this).getAthlete(athleteId);
+                String name = currAthlete.getFirstName();
+                if(currAthlete.getLastName() != null && !currAthlete.getLastName().isEmpty()) {
+                    name = currAthlete.getFirstName() + " " + currAthlete.getLastName().charAt(0);
+                }
+                texts[athleteBoatPosition].setText(name);
+                boatAthletes[athleteBoatPosition] = currAthlete.getId().toString();
+                currAthlete.setInLineup(true);
+                AthleteLab.get(this).updateAthlete(currAthlete);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+
+            if (athleteId != null) {
+                try {
+                    athlete = AthleteLab.get(this).getAthlete(athleteId);
+                    fromList = true;
+                    athleteName = athlete.getFirstName();
+                    if (athlete.getLastName() != null && !athlete.getLastName().isEmpty()) {
+                        athleteName = athlete.getFirstName() + " " + athlete.getLastName().charAt(0);
+                    }
+                    addAthlete();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        boatButtons[currentBoat].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
     }
 
     private void setUp() throws ParseException {
@@ -139,8 +166,22 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
         twoButton.setOnClickListener(this);
         oneButton.setOnClickListener(this);
 
-        buttons = new Button[]{coxButton, eightButton, sevenButton, sixButton, fiveButton,
+        lineupButtons = new Button[]{coxButton, eightButton, sevenButton, sixButton, fiveButton,
                 fourButton, threeButton, twoButton, oneButton};
+
+        Button boatOneButton = (Button) findViewById(R.id.boat_one);
+        Button boatTwoButton = (Button) findViewById(R.id.boat_two);
+        Button boatThreeButton = (Button) findViewById(R.id.boat_three);
+        Button boatFourButton = (Button) findViewById(R.id.boat_four);
+        Button boatFiveButton = (Button) findViewById(R.id.boat_five);
+
+        boatOneButton.setOnClickListener(this);
+        boatTwoButton.setOnClickListener(this);
+        boatThreeButton.setOnClickListener(this);
+        boatFourButton.setOnClickListener(this);
+        boatFiveButton.setOnClickListener(this);
+
+        boatButtons = new Button[] {boatOneButton, boatTwoButton, boatThreeButton, boatFourButton, boatFiveButton};
 
         TextView coxText = (TextView) findViewById(R.id.lineup_cox_text_name_view);
         TextView eightText = (TextView) findViewById(R.id.lineup_8_text_name_view);
@@ -186,6 +227,32 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.lineup_1_image_button_view:
                 updateText(8);
                 break;
+            case R.id.boat_one:
+                boatButtons[currentBoat].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorPrimaryDark));
+                boatButtons[0].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
+                currentBoat = 0;
+                break;
+            case R.id.boat_two:
+                boatButtons[currentBoat].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorPrimaryDark));
+                boatButtons[1].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
+                currentBoat = 1;
+                break;
+            case R.id.boat_three:
+                boatButtons[currentBoat].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorPrimaryDark));
+                boatButtons[2].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
+                currentBoat = 2;
+                break;
+            case R.id.boat_four:
+                boatButtons[currentBoat].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorPrimaryDark));
+                boatButtons[3].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
+                currentBoat = 3;
+                break;
+            case R.id.boat_five:
+                boatButtons[currentBoat].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorPrimaryDark));
+                boatButtons[4].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
+                currentBoat = 4;
+                break;
+
         }
     }
 
@@ -199,6 +266,11 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
             } else {
                 alertChange(position, athlete);
             }
+        } else {
+            Intent i = new Intent(this, AthleteListActivity.class);
+            i.putExtra(EXTRA_BOAT_POSITION, position);
+            i.putExtra(EXTRA_ATHLETE_ARRAY, boatAthletes);
+            startActivity(i);
         }
     }
 
@@ -248,6 +320,43 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
                 Intent i = new Intent(this, AthleteListActivity.class);
                 i.putExtra(EXTRA_ATHLETE_ARRAY, boatAthletes);
                 startActivity(i);
+                return true;
+            case R.id.clear_lineup:
+                final AthleteLab athleteLab = AthleteLab.get(this);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setMessage("Are you sure you want to clear this lineup?");
+                alertDialogBuilder.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                try {
+                                    athleteLab.resetAthletesInLineup();
+                                    for(int i = 1; i < 9; i++){
+                                        if(boatAthletes[i] != null){
+                                            String text = (9-i) + " Seat";
+                                            texts[i].setText(text);
+                                        }
+                                    }
+                                    if(boatAthletes[0] != null){
+                                        String text = "Coxswain";
+                                        texts[0].setText(text);
+                                    }
+                                    boatAthletes = new String[9];
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -26,4 +26,10 @@
     <string name="_2_seat">2 Seat</string>
     <string name="_1_seat">1 Seat</string>
     <string name="current_rower">Current Rower:</string>
+    <string name="no_rower_selected">No Rower Selected</string>
+    <string name="boat_5">Boat 5</string>
+    <string name="boat_4">Boat 4</string>
+    <string name="boat_3">Boat 3</string>
+    <string name="boat_2">Boat 2</string>
+    <string name="boat_1">Boat 1</string>
 </resources>
