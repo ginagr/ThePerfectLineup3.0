@@ -298,6 +298,7 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
                 boatAthletes[position] = athlete.getId().toString();
                 athlete.setInLineup(true);
                 AthleteLab.get(this).updateAthlete(athlete);
+                fromList = false;
             } else {
                 alertChange(position, athlete, pos);
             }
@@ -326,6 +327,7 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
                             athleteLab.updateAthlete(currAthlete);
                             texts[pos].setText(athleteName);
                             boatAthletes[position] = currAthlete.getId().toString();
+                            fromList = false;
                         }
                     });
             alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
