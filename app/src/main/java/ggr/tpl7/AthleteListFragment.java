@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,7 +30,7 @@ public class AthleteListFragment extends Fragment {
     private static final String EXTRA_ATHLETE_ID = "ggr.tpl17.athlete_id";
     private static final String EXTRA_ATHLETE_ARRAY = "ggr.tpl17.athlete_array";
     private static final String EXTRA_BOAT_POSITION = "ggr.tpl17.boat_position";
-    private static final String EXTRA_BOAT_ATHLETE_ID = "ggr.tpl17.boat_athlete_id";
+    private static final String EXTRA_CURRENT_BOAT = "ggr.tpl17.current_boat";
 
     private RecyclerView athleteRecyclerView;
     private AthleteAdapter adapter;
@@ -38,6 +39,7 @@ public class AthleteListFragment extends Fragment {
     private String[] boatAthletes = new String[45];
 
     private int boatPosition;
+    private int currBoat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class AthleteListFragment extends Fragment {
         setHasOptionsMenu(true);
 
         boatPosition = getActivity().getIntent().getIntExtra(EXTRA_BOAT_POSITION, -1);
+        currBoat = getActivity().getIntent().getIntExtra(EXTRA_CURRENT_BOAT, -1);
 
         boatAthletes = getActivity().getIntent().getStringArrayExtra(EXTRA_ATHLETE_ARRAY);
         if(boatAthletes == null){
@@ -113,6 +116,7 @@ public class AthleteListFragment extends Fragment {
             case R.id.menu_item_goto_lineup:
                 Intent i = new Intent(getActivity(), LineupActivity.class);
                 i.putExtra(EXTRA_ATHLETE_ARRAY, boatAthletes);
+                i.putExtra(EXTRA_CURRENT_BOAT, currBoat);
                 startActivity(i);
                 return true;
             default:
@@ -203,6 +207,7 @@ public class AthleteListFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), LineupActivity.class);
                         intent.putExtra(EXTRA_ATHLETE_ID, athlete.getId());
                         intent.putExtra(EXTRA_ATHLETE_ARRAY, boatAthletes);
+                        intent.putExtra(EXTRA_CURRENT_BOAT, currBoat);
                         if(boatPosition!= -1){
                             intent.putExtra(EXTRA_BOAT_POSITION, boatPosition);
                         }
@@ -212,6 +217,7 @@ public class AthleteListFragment extends Fragment {
                 });
             }
 
+            Log.e("AthleteListFragment", "athlete: " + athlete.getFirstName() + " inLineup: " + athlete.getInLineup());
 
             //TODO:get image path
         }
@@ -219,6 +225,7 @@ public class AthleteListFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Intent intent = AthletePagerActivity.newIntent(getActivity(), athlete.getId());
+            intent.putExtra(EXTRA_ATHLETE_ARRAY, boatAthletes);
             startActivity(intent);
         }
     }

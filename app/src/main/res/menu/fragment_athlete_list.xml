@@ -12,9 +12,5 @@
         android:title="Go To Lineup"
         app:showAsAction="always"
         android:icon="?android:attr/actionModePasteDrawable"/>
-    <!--<item-->
-        <!--android:id="@+id/menu_item_show_subtitle"-->
-        <!--android:title="@string/show_subtitle"-->
-        <!--app:showAsAction="ifRoom"/>-->
 
 </menu>

@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,7 +23,7 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
     private static final String EXTRA_ATHLETE_ID = "ggr.tpl17.athlete_id";
     private static final String EXTRA_ATHLETE_ARRAY = "ggr.tpl17.athlete_array";
     private static final String EXTRA_BOAT_POSITION = "ggr.tpl17.boat_position";
-    private static final String EXTRA_BOAT_ATHLETE_ID = "ggr.tpl17.boat_athlete_id";
+    private static final String EXTRA_CURRENT_BOAT = "ggr.tpl17.current_boat";
 
 
     private String[] boatAthletes = new String[45];
@@ -39,7 +40,9 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
     private Button[] boatButtons;
 
     private int athleteBoatPosition;
-    private int currentBoat = 0;
+    public int currentBoat;
+
+    public int getCurrentBoat(){return currentBoat;}
 
 
     @Override
@@ -50,6 +53,8 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
         athleteBoatPosition = getIntent().getIntExtra(EXTRA_BOAT_POSITION, -1);
         UUID athleteId = (UUID) getIntent().getSerializableExtra(EXTRA_ATHLETE_ID);
         boatAthletes = getIntent().getStringArrayExtra(EXTRA_ATHLETE_ARRAY);
+        currentBoat = getIntent().getIntExtra(EXTRA_CURRENT_BOAT, -1);
+        if(currentBoat == -1){ currentBoat = 0; }
 
         listen();
 
@@ -75,7 +80,8 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
                 if(currAthlete.getLastName() != null && !currAthlete.getLastName().isEmpty()) {
                     name = currAthlete.getFirstName() + " " + currAthlete.getLastName().charAt(0);
                 }
-                texts[athleteBoatPosition].setText(name);
+                int loc = athleteBoatPosition - (currentBoat*9);
+                texts[loc].setText(name);
                 boatAthletes[athleteBoatPosition] = currAthlete.getId().toString();
                 currAthlete.setInLineup(true);
                 AthleteLab.get(this).updateAthlete(currAthlete);
@@ -100,20 +106,29 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
 
-        boatButtons[currentBoat].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
+        Log.e("LineupActivity", "currentBoat in oncreate: " + currentBoat);
+        if(currentBoat != 0) {
+            boatButtons[currentBoat].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
+            boatButtons[0].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorPrimaryDark));
+        }
     }
 
     private void setUp() throws ParseException {
+        Log.e("LineupActivity", "currentBoat at setup: " + currentBoat);
         AthleteLab athleteLab = AthleteLab.get(this);
-        for(int i = 0; i < 9; i++){
+        int start = currentBoat*9;
+        int end = start+9;
+        int count = 0;
+        for(int i = start; i < end; i++){
             if(boatAthletes[i] != null){
                 Athlete currAthlete = athleteLab.getAthlete(UUID.fromString(boatAthletes[i]));
                 String name = currAthlete.getFirstName();
                 if(currAthlete.getLastName() != null && !currAthlete.getLastName().isEmpty()) {
                    name = currAthlete.getFirstName() + " " + currAthlete.getLastName().charAt(0);
                 }
-                texts[i].setText(name);
+                texts[count].setText(name);
             }
+            count++;
         }
 
     }
@@ -201,80 +216,101 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v){
         switch(v.getId()){
             case R.id.lineup_cox_image_button_view:
-                updateText(0);
+                updateText(currentBoat*9, 0);
                 break;
             case R.id.lineup_8_image_button_view:
-                updateText(1);
+                updateText((currentBoat*9)+1, 1);
                 break;
             case R.id.lineup_7_image_button_view:
-                updateText(2);
+                updateText((currentBoat*9)+2, 2);
                 break;
             case R.id.lineup_6_image_button_view:
-                updateText(3);
+                updateText((currentBoat*9)+3, 3);
                 break;
             case R.id.lineup_5_image_button_view:
-                updateText(4);
+                updateText((currentBoat*9)+4, 4);
                 break;
             case R.id.lineup_4_image_button_view:
-                updateText(5);
+                updateText((currentBoat*9)+5, 5);
                 break;
             case R.id.lineup_3_image_button_view:
-                updateText(6);
+                updateText((currentBoat*9)+6, 6);
                 break;
             case R.id.lineup_2_image_button_view:
-                updateText(7);
+                updateText((currentBoat*9)+7, 7);
                 break;
             case R.id.lineup_1_image_button_view:
-                updateText(8);
+                updateText((currentBoat*9)+8, 8);
                 break;
             case R.id.boat_one:
                 boatButtons[currentBoat].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorPrimaryDark));
                 boatButtons[0].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
                 currentBoat = 0;
+                updateBoat(currentBoat);
                 break;
             case R.id.boat_two:
                 boatButtons[currentBoat].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorPrimaryDark));
                 boatButtons[1].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
                 currentBoat = 1;
+                updateBoat(currentBoat);
                 break;
             case R.id.boat_three:
                 boatButtons[currentBoat].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorPrimaryDark));
                 boatButtons[2].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
                 currentBoat = 2;
+                updateBoat(currentBoat);
                 break;
             case R.id.boat_four:
                 boatButtons[currentBoat].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorPrimaryDark));
                 boatButtons[3].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
                 currentBoat = 3;
+                updateBoat(currentBoat);
                 break;
             case R.id.boat_five:
                 boatButtons[currentBoat].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorPrimaryDark));
                 boatButtons[4].setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
                 currentBoat = 4;
+                updateBoat(currentBoat);
                 break;
 
         }
     }
 
-    private void updateText(int position){
+    private void updateBoat(int lastBoat){
+        String text;
+        for(int i = 1; i < 9; i++){
+                text = (9 - i) + " Seat";
+                texts[i].setText(text);
+        }
+        text = "Coxswain";
+        texts[0].setText(text);
+        try {
+            setUp();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateText(int position, int pos){
         if(fromList) {
             if(boatAthletes[position] == null) {
-                texts[position].setText(athleteName);
+                texts[pos].setText(athleteName);
                 boatAthletes[position] = athlete.getId().toString();
                 athlete.setInLineup(true);
                 AthleteLab.get(this).updateAthlete(athlete);
             } else {
-                alertChange(position, athlete);
+                alertChange(position, athlete, pos);
             }
         } else {
             Intent i = new Intent(this, AthleteListActivity.class);
             i.putExtra(EXTRA_BOAT_POSITION, position);
             i.putExtra(EXTRA_ATHLETE_ARRAY, boatAthletes);
+            i.putExtra(EXTRA_CURRENT_BOAT, currentBoat);
             startActivity(i);
         }
     }
 
-    private void alertChange(final int position, final Athlete currAthlete) {
+    private void alertChange(final int position, final Athlete currAthlete, final int pos) {
         try {
             final Athlete pastAthlete = AthleteLab.get(this).getAthlete(UUID.fromString(boatAthletes[position]));
             final AthleteLab athleteLab = AthleteLab.get(this);
@@ -288,7 +324,7 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
                             currAthlete.setInLineup(true);
                             athleteLab.updateAthlete(pastAthlete);
                             athleteLab.updateAthlete(currAthlete);
-                            texts[position].setText(athleteName);
+                            texts[pos].setText(athleteName);
                             boatAthletes[position] = currAthlete.getId().toString();
                         }
                     });
@@ -331,7 +367,9 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
                             public void onClick(DialogInterface arg0, int arg1) {
                                 try {
                                     athleteLab.resetAthletesInLineup();
-                                    for(int i = 1; i < 9; i++){
+                                    int start = currentBoat*9;
+                                    int end = start+9;
+                                    for(int i = start; i < end; i++){
                                         if(boatAthletes[i] != null){
                                             String text = (9-i) + " Seat";
                                             texts[i].setText(text);

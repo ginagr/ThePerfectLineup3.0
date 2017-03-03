@@ -1,6 +1,7 @@
 package ggr.tpl7;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,14 +9,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 
 import java.text.ParseException;
 import java.util.List;
 import java.util.UUID;
 
 public class AthletePagerActivity extends AppCompatActivity {
-    private static final String EXTRA_ATHLETE_ID =
-            "ggr.tpl17.athlete_id";
+    private static final String EXTRA_ATHLETE_ID = "ggr.tpl17.athlete_id";
+    private static final String EXTRA_ATHLETE_ARRAY = "ggr.tpl17.athlete_array";
 
     private ViewPager viewPager;
     private List<Athlete> athletes;
@@ -31,8 +33,8 @@ public class AthletePagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_athlete_pager);
 
-        UUID athleteId = (UUID) getIntent()
-                .getSerializableExtra(EXTRA_ATHLETE_ID);
+        UUID athleteId = (UUID) getIntent().getSerializableExtra(EXTRA_ATHLETE_ID);
+        String[] boatAthletes = getIntent().getStringArrayExtra(EXTRA_ATHLETE_ARRAY);
 
         viewPager = (ViewPager) findViewById(R.id.activity_athlete_pager_view_pager);
 
@@ -79,4 +81,5 @@ public class AthletePagerActivity extends AppCompatActivity {
             }
         }
     }
+
 }

@@ -21,6 +21,9 @@ import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -53,7 +56,6 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
     public static AthleteFragment newInstance(UUID athleteId) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_ATHLETE_ID, athleteId);
-
         AthleteFragment fragment = new AthleteFragment();
         fragment.setArguments(args);
         return fragment;
@@ -62,6 +64,8 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
         UUID athleteId = (UUID) getArguments().getSerializable(ARG_ATHLETE_ID);
         try {
             athlete = AthleteLab.get(getActivity()).getAthlete(athleteId);
@@ -414,6 +418,24 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
                 unbindDrawables(((ViewGroup) view).getChildAt(i));
             }
             ((ViewGroup) view).removeAllViews();
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_athlete, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save_to_roster:
+                Intent intent = new Intent(getActivity(), AthleteListActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
