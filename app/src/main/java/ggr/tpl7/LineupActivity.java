@@ -371,11 +371,13 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
                                     athleteLab.resetAthletesInLineup();
                                     int start = currentBoat*9;
                                     int end = start+9;
+                                    int count = 0;
                                     for(int i = start; i < end; i++){
                                         if(boatAthletes[i] != null){
                                             String text = (9-i) + " Seat";
-                                            texts[i].setText(text);
+                                            texts[count].setText(text);
                                         }
+                                        count++;
                                     }
                                     if(boatAthletes[0] != null){
                                         String text = "Coxswain";
