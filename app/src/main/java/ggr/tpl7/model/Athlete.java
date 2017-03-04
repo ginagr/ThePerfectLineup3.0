@@ -1,4 +1,4 @@
-package ggr.tpl7;
+package ggr.tpl7.model;
 
 import java.util.UUID;
 
@@ -16,6 +16,7 @@ public class Athlete {
     private double twokSec = 0; //TODO: change database
     private String linkContact;
     private boolean inLineup = false;
+
 
     public Athlete() {
         id = UUID.randomUUID();

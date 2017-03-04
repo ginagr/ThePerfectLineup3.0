@@ -6,7 +6,7 @@ import android.database.CursorWrapper;
 import java.text.ParseException;
 import java.util.UUID;
 
-import ggr.tpl7.Athlete;
+import ggr.tpl7.model.Athlete;
 import ggr.tpl7.database.AthleteDbSchema.AthleteTable;
 
 public class AthleteCursorWrapper extends CursorWrapper {

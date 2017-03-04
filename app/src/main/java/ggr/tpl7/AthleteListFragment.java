@@ -24,6 +24,9 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.util.List;
 
+import ggr.tpl7.model.Athlete;
+import ggr.tpl7.model.AthleteLab;
+
 public class AthleteListFragment extends Fragment {
 
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";

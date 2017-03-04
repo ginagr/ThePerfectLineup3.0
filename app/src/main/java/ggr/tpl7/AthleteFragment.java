@@ -19,7 +19,6 @@ import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,6 +39,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.UUID;
+
+import ggr.tpl7.model.Athlete;
+import ggr.tpl7.model.AthleteLab;
 
 public class AthleteFragment extends Fragment implements View.OnClickListener {
 

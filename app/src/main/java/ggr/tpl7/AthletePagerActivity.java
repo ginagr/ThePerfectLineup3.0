@@ -1,7 +1,6 @@
 package ggr.tpl7;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,11 +8,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 
 import java.text.ParseException;
 import java.util.List;
 import java.util.UUID;
+
+import ggr.tpl7.model.Athlete;
+import ggr.tpl7.model.AthleteLab;
 
 public class AthletePagerActivity extends AppCompatActivity {
     private static final String EXTRA_ATHLETE_ID = "ggr.tpl17.athlete_id";

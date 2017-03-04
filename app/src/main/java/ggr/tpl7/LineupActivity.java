@@ -2,7 +2,6 @@ package ggr.tpl7;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +16,9 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.util.UUID;
+
+import ggr.tpl7.model.Athlete;
+import ggr.tpl7.model.AthleteLab;
 
 public class LineupActivity extends AppCompatActivity implements View.OnClickListener{
 

@@ -1,4 +1,4 @@
-package ggr.tpl7;
+package ggr.tpl7.model;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,8 +8,12 @@ import android.os.Environment;
 import android.util.Log;
 
 import ggr.tpl7.database.AthleteBaseHelper;
+import ggr.tpl7.database.AthleteBoatDbSchema;
 import ggr.tpl7.database.AthleteCursorWrapper;
 import ggr.tpl7.database.AthleteDbSchema.AthleteTable;
+import ggr.tpl7.database.BoatDbSchema.BoatTable;
+import ggr.tpl7.database.AthleteBoatDbSchema.AthleteBoatTable;
+import ggr.tpl7.database.BoatDbSchema;
 
 import java.io.File;
 import java.text.ParseException;
@@ -123,15 +127,15 @@ public class AthleteLab {
 
     private AthleteCursorWrapper queryAthlete(String whereClause, String[] whereArgs) {
         Cursor cursor = database.query(
-                AthleteTable.NAME,
-                null, // Columns - null selects all columns
-                whereClause,
-                whereArgs,
-                null, // groupBy
-                null, // having
-                null  // orderBy\
+                    AthleteTable.NAME,
+                    null, // Columns - null selects all columns
+                    whereClause,
+                    whereArgs,
+                    null, // groupBy
+                    null, // having
+                    null  // orderBy\
 
-        );
+            );
 
         return new AthleteCursorWrapper(cursor);
     }
@@ -156,6 +160,25 @@ public class AthleteLab {
             athlete.setInLineup(false);
             updateAthlete(athlete);
         }
+    }
 
+    public List<Athlete> getAthletesByBoat(UUID boatID) throws ParseException {
+        List<Athlete> athletes = new ArrayList<>();
+
+        String selectQuery = "select * from " + AthleteTable.NAME + " at, "
+                + BoatTable.NAME + " bo, " + AthleteBoatTable.NAME + " ab where bo."
+                + BoatTable.Cols.UUID + " = '" + boatID + "'" + " AND bo." + BoatTable.Cols.UUID
+                + " = " + "ab." + AthleteBoatTable.Cols.BOATID + " AND at." + AthleteTable.Cols.UUID + " = "
+                + "tt." + AthleteBoatTable.Cols.ATHLETEID;
+
+        Log.e("AthleteLab", selectQuery);
+        AthleteCursorWrapper cursor = new AthleteCursorWrapper(database.rawQuery(selectQuery, null));
+
+        if (cursor.moveToFirst()) {
+            do {
+                athletes.add(cursor.getAthlete());
+            } while (cursor.moveToNext());
+        }
+        return athletes;
     }
 }
