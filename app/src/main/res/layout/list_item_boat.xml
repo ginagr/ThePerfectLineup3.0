@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/list_item_boat_layout">
+        <Button
+            android:text="Boat 1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/boat_button_fragment"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:layout_marginBottom="10dp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@android:drawable/ic_menu_edit"
+            android:id="@+id/boat_list_edit"
+            android:layout_gravity="center"
+            android:layout_marginBottom="3.75dp"/>
+
+</LinearLayout>

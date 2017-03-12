@@ -31,7 +31,9 @@ public class AthleteBaseHelper extends SQLiteOpenHelper {
             AthleteTable.Cols.TWOKMIN + ", " +
             AthleteTable.Cols.TWOKSEC + ", " +
             AthleteTable.Cols.CONTACT + ", " +
-            AthleteTable.Cols.INLINEUP + ")"
+            AthleteTable.Cols.INLINEUP + ", " +
+            AthleteTable.Cols.BOATUUID + ", " +
+            AthleteTable.Cols.SEAT + ")"
             );
 
         db.execSQL("create table " + BoatTable.NAME + "(" +
@@ -39,14 +41,8 @@ public class AthleteBaseHelper extends SQLiteOpenHelper {
                 BoatTable.Cols.UUID + ", " +
                 BoatTable.Cols.BOATSIZE + ", " +
                 BoatTable.Cols.COX + ", " +
-                BoatTable.Cols.NAME + ")"
-        );
-
-        db.execSQL("create table " + AthleteBoatTable.NAME + "(" +
-                "_id integer primary key autoincrement," +
-                AthleteBoatTable.Cols.ATHLETEID + ", " +
-                AthleteBoatTable.Cols.BOATID + ", " +
-                AthleteBoatTable.Cols.SEAT + ")"
+                BoatTable.Cols.NAME + ", " +
+                BoatTable.Cols.CURRENT + ")"
         );
     }
 

@@ -42,6 +42,7 @@ import java.util.UUID;
 
 import ggr.tpl7.model.Athlete;
 import ggr.tpl7.model.AthleteLab;
+import ggr.tpl7.model.Position;
 
 public class AthleteFragment extends Fragment implements View.OnClickListener {
 
@@ -69,12 +70,8 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
         setHasOptionsMenu(true);
 
         UUID athleteId = (UUID) getArguments().getSerializable(ARG_ATHLETE_ID);
-        try {
-            athlete = AthleteLab.get(getActivity()).getAthlete(athleteId);
-        } catch (ParseException e) {
-            athlete = new Athlete();
-            e.printStackTrace();
-        }
+
+        athlete = AthleteLab.get(getActivity()).getAthlete(athleteId);
 
         photo = AthleteLab.get(getActivity()).getPhotoFiles(athlete);
     }
@@ -163,23 +160,23 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
 //        });
 
         RadioGroup radioGroup = (RadioGroup) v.findViewById(R.id.radio_fragment);
-        if(athlete.getPosition() < 1){
+        if(athlete.getPosition() == Position.NONE){
             radioGroup.clearCheck();
         } else {
             switch (athlete.getPosition()){
-                case 4 :
+                case STARBOARD:
                     RadioButton starboard = (RadioButton)v.findViewById(R.id.starboard_radio);
                     starboard.setChecked(true);
                     break;
-                case 3:
+                case PORT:
                     RadioButton port = (RadioButton)v.findViewById(R.id.port_radio);
                     port.setChecked(true);
                     break;
-                case 2:
+                case BOTH:
                     RadioButton both = (RadioButton)v.findViewById(R.id.both_radio);
                     both.setChecked(true);
                     break;
-                case 1:
+                case COXSWAIN:
                     RadioButton cox = (RadioButton)v.findViewById(R.id.cox_radio);
                     cox.setChecked(true);
                     break;
@@ -191,24 +188,24 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.starboard_radio:
-                            athlete.setPosition(4);
+                            athlete.setPosition(Position.STARBOARD);
                         break;
                     case R.id.port_radio:
-                            athlete.setPosition(3);
+                            athlete.setPosition(Position.PORT);
                         break;
                     case R.id.both_radio:
-                            athlete.setPosition(2);
+                            athlete.setPosition(Position.BOTH);
                         break;
                     case R.id.cox_radio:
-                            athlete.setPosition(1);
+                            athlete.setPosition(Position.COXSWAIN);
                         break;
                 }
             }
         });
 
 
-        Button contactButton = (Button) v.findViewById(R.id.delete_athlete_button);
-        contactButton.setOnClickListener(new View.OnClickListener() {
+        Button deleteButton = (Button) v.findViewById(R.id.delete_athlete_button);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                 alertDialogBuilder.setMessage("Are you sure you want to delete this athlete?");

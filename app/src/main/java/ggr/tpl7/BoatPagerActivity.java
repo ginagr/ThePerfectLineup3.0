@@ -15,44 +15,44 @@ import java.util.UUID;
 
 import ggr.tpl7.model.Athlete;
 import ggr.tpl7.model.AthleteLab;
+import ggr.tpl7.model.Boat;
+import ggr.tpl7.model.BoatLab;
 
-public class AthletePagerActivity extends AppCompatActivity {
-    private static final String EXTRA_ATHLETE_ID = "ggr.tpl17.athlete_id";
-    private static final String EXTRA_ATHLETE_ARRAY = "ggr.tpl17.athlete_array";
+public class BoatPagerActivity extends AppCompatActivity {
+    private static final String EXTRA_BOAT_ID = "ggr.tpl17.boat_id";
 
     private ViewPager viewPager;
-    private List<Athlete> athletes;
+    private List<Boat> boats;
 
-    public static Intent newIntent(Context packageContext, UUID athleteId) {
-        Intent intent = new Intent(packageContext, AthletePagerActivity.class);
-        intent.putExtra(EXTRA_ATHLETE_ID, athleteId);
+    public static Intent newIntent(Context packageContext, UUID boatId) {
+        Intent intent = new Intent(packageContext, BoatPagerActivity.class);
+        intent.putExtra(EXTRA_BOAT_ID, boatId);
         return intent;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_athlete_pager);
+        setContentView(R.layout.activity_boat_pager);
 
-        UUID athleteId = (UUID) getIntent().getSerializableExtra(EXTRA_ATHLETE_ID);
-        String[] boatAthletes = getIntent().getStringArrayExtra(EXTRA_ATHLETE_ARRAY);
+        UUID boatId = (UUID) getIntent().getSerializableExtra(EXTRA_BOAT_ID);
 
-        viewPager = (ViewPager) findViewById(R.id.activity_athlete_pager_view_pager);
+        viewPager = (ViewPager) findViewById(R.id.activity_boat_pager_view_pager);
 
-        athletes = AthleteLab.get(this).getAthletes();
+        boats = BoatLab.get(this).getBoats();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         viewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
 
             @Override
             public Fragment getItem(int position) {
-                Athlete athlete = athletes.get(position);
-                return AthleteFragment.newInstance(athlete.getId());
+                Boat boat = boats.get(position);
+                return BoatFragment.newInstance(boat.getId());
             }
 
             @Override
             public int getCount() {
-                return athletes.size();
+                return boats.size();
             }
         });
 
@@ -62,9 +62,9 @@ public class AthletePagerActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                Athlete athlete = athletes.get(position);
-                if (athlete.getFirstName() != null) {
-                    setTitle(athlete.getFirstName());
+                Boat boat = boats.get(position);
+                if (boat.getName() != null) {
+                    setTitle(boat.getName());
                 }
             }
 
@@ -72,8 +72,8 @@ public class AthletePagerActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) { }
         });
 
-        for (int i = 0; i < athletes.size(); i++) {
-            if (athletes.get(i).getId().equals(athleteId)) {
+        for (int i = 0; i < boats.size(); i++) {
+            if (boats.get(i).getId().equals(boatId)) {
                 viewPager.setCurrentItem(i);
                 break;
             }

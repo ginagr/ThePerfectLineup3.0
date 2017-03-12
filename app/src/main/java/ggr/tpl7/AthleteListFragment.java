@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.UUID;
 
 import ggr.tpl7.model.Athlete;
 import ggr.tpl7.model.AthleteLab;
@@ -39,27 +40,29 @@ public class AthleteListFragment extends Fragment {
     private AthleteAdapter adapter;
     private boolean mSubtitleVisible;
 
-    private String[] boatAthletes = new String[45];
+    private int athleteBoatPosition;
 
-    private int boatPosition;
-    private int currBoat;
+    private UUID currAthleteId;
+    private UUID currBoatId;
+
+    private boolean fromRosterButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        boatPosition = getActivity().getIntent().getIntExtra(EXTRA_BOAT_POSITION, -1);
-        currBoat = getActivity().getIntent().getIntExtra(EXTRA_CURRENT_BOAT, -1);
+        athleteBoatPosition = getActivity().getIntent().getIntExtra(EXTRA_BOAT_POSITION, -1);
+        currAthleteId = (UUID) getActivity().getIntent().getSerializableExtra(EXTRA_ATHLETE_ID);
 
-        boatAthletes = getActivity().getIntent().getStringArrayExtra(EXTRA_ATHLETE_ARRAY);
-        if(boatAthletes == null){
-            try {
-                AthleteLab.get(getContext()).resetAthletesInLineup();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        currBoatId = (UUID) getActivity().getIntent().getSerializableExtra(EXTRA_CURRENT_BOAT);
+
+        if(athleteBoatPosition == -1 && currAthleteId == null && currBoatId == null){
+            fromRosterButton = true;
+        } else {
+            fromRosterButton = false;
         }
+
     }
 
     @Override
@@ -118,8 +121,7 @@ public class AthleteListFragment extends Fragment {
                 return true;
             case R.id.menu_item_goto_lineup:
                 Intent i = new Intent(getActivity(), LineupActivity.class);
-                i.putExtra(EXTRA_ATHLETE_ARRAY, boatAthletes);
-                i.putExtra(EXTRA_CURRENT_BOAT, currBoat);
+                i.putExtra(EXTRA_CURRENT_BOAT, currBoatId);
                 startActivity(i);
                 return true;
             default:
@@ -180,25 +182,7 @@ public class AthleteListFragment extends Fragment {
             athlete = bAthlete;
             String full = athlete.getFirstName() + " " + athlete.getLastName();
             nameTextView.setText(full);
-
-            switch (athlete.getPosition()){
-                case 4 :
-                    String pos = "Starboard";
-                    sideTextView.setText(pos);
-                    break;
-                case 3:
-                    pos = "Port";
-                    sideTextView.setText(pos);
-                    break;
-                case 2:
-                    pos = "Both";
-                    sideTextView.setText(pos);
-                    break;
-                case 1:
-                    pos = "Coxswain";
-                    sideTextView.setText(pos);
-                    break;
-            }
+            sideTextView.setText(athlete.getPosition().toString());
 
             if(athlete.getInLineup()) {
                 inLineupImageView.setColorFilter(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
@@ -207,20 +191,17 @@ public class AthleteListFragment extends Fragment {
                 inLineupImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), LineupActivity.class);
-                        intent.putExtra(EXTRA_ATHLETE_ID, athlete.getId());
-                        intent.putExtra(EXTRA_ATHLETE_ARRAY, boatAthletes);
-                        intent.putExtra(EXTRA_CURRENT_BOAT, currBoat);
-                        if(boatPosition!= -1){
-                            intent.putExtra(EXTRA_BOAT_POSITION, boatPosition);
+                        Intent i = new Intent(getActivity(), LineupActivity.class);
+                        i.putExtra(EXTRA_ATHLETE_ID, athlete.getId());
+                        i.putExtra(EXTRA_CURRENT_BOAT, currBoatId);
+                        if(fromRosterButton){
+                            startActivity(i);
                         }
-                        startActivity(intent);
-
+                        i.putExtra(EXTRA_BOAT_POSITION, athleteBoatPosition);
+                        startActivity(i);
                     }
                 });
             }
-
-            Log.e("AthleteListFragment", "athlete: " + athlete.getFirstName() + " inLineup: " + athlete.getInLineup());
 
             //TODO:get image path
         }
@@ -228,7 +209,6 @@ public class AthleteListFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Intent intent = AthletePagerActivity.newIntent(getActivity(), athlete.getId());
-            intent.putExtra(EXTRA_ATHLETE_ARRAY, boatAthletes);
             startActivity(intent);
         }
     }

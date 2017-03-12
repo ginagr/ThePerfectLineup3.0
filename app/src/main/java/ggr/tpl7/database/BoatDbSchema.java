@@ -9,6 +9,8 @@ public class BoatDbSchema {
             public static final String BOATSIZE = "boatSize";
             public static final String COX = "cox";
             public static final String NAME = "name";
+            public static final String CURRENT = "current";
+
         }
     }
 }

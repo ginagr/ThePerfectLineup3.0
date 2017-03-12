@@ -8,14 +8,16 @@ public class Athlete {
     private UUID id;
     private String firstName = "";
     private String lastName = "";
-    private int position = 0; //1 = Cox, 2 = Port, 3 = Starboard  TODO: turn to enum
-    private int feet = 0;
-    private int inches = 0;
-    private int weight = 0;
-    private int twokMin = 0;
-    private double twokSec = 0; //TODO: change database
+    private Position position; //1 = Cox, 2 = both, 3 = port, 4 = starboard, 5 = none
+    private int feet;
+    private int inches;
+    private int weight;
+    private int twokMin;
+    private double twokSec; //TODO: change database
     private String linkContact;
     private boolean inLineup = false;
+    private UUID boatId;
+    private int seat;
 
 
     public Athlete() {
@@ -26,16 +28,11 @@ public class Athlete {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        position = 0;
-        feet = 0;
-        inches = 0;
-        weight = 0;
-        twokMin = 0;
-        twokSec = 0;
+        position = Position.NONE;
         inLineup = false;
     }
 
-    public Athlete(String firstName, String lastName, int position
+    public Athlete(String firstName, String lastName, Position position
     , int feet, int inches, int weight, int twokMin, double twokSec) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -63,6 +60,25 @@ public class Athlete {
         return id;
     }
 
+    public UUID getBoatId() {
+        if(boatId == null){
+            return id;
+        }
+        return boatId;
+    }
+
+    public void setBoatId(UUID boatId) {
+        this.boatId = boatId;
+    }
+
+    public int getSeat() {
+        return seat;
+    }
+
+    public void setSeat(int seat) {
+        this.seat = seat;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -79,11 +95,14 @@ public class Athlete {
         this.lastName = lastName;
     }
 
-    public int getPosition() {
+    public Position getPosition() {
+        if(position == null){
+            return Position.NONE;
+        }
         return position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 

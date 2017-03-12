@@ -16,6 +16,8 @@ public class AthleteDbSchema {
             public static final String TWOKSEC = "twokSec";
             public static final String CONTACT = "contact";
             public static final String INLINEUP = "inLineup";
+            public static final String BOATUUID = "boatId";
+            public static final String SEAT = "seat";
         }
     }
 }

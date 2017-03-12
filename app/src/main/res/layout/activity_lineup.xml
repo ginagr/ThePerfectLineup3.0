@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/activity_lineup"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_lineup_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -26,10 +27,9 @@
 
         <Button
             android:id="@+id/lineup_cox_image_button_view"
-            android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
             />
         <Button
@@ -37,7 +37,7 @@
             android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
             />
         <Button
@@ -45,7 +45,7 @@
             android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
             />
         <Button
@@ -53,7 +53,7 @@
             android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
             />
         <Button
@@ -61,7 +61,7 @@
             android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
             />
         <Button
@@ -69,7 +69,7 @@
             android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
             />
         <Button
@@ -77,7 +77,7 @@
             android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
             />
         <Button
@@ -85,7 +85,7 @@
             android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
             />
         <Button
@@ -93,7 +93,7 @@
             android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
             />
 
@@ -103,7 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_toRightOf="@id/image_boat_layout">
+        android:layout_toEndOf="@id/image_boat_layout">
 
         <TextView
             android:id="@+id/lineup_cox_text_name_view"
@@ -184,51 +184,25 @@
 
     </LinearLayout>
 
-    <Button
-        android:text="@string/boat_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/boat_one"
-        android:layout_alignStart="@+id/boat_one"
-        android:id="@+id/boat_two"
-        android:backgroundTint="@color/colorPrimaryDark"/>
+    <ImageView
+        android:layout_height="40dp"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:id="@+id/add_boat_button"
+        android:layout_width="40dp"
+        android:contentDescription="Add Boat"
+        android:layout_alignBottom="@+id/tableLayout"
+        android:layout_toStartOf="@+id/boat_list_fragment_lineup"
+        android:layout_below="@+id/boat_list_fragment_lineup"/>
 
-    <Button
-        android:text="@string/boat_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/boat_two"
-        android:layout_alignEnd="@+id/boat_two"
-        android:id="@+id/boat_three"
-        android:backgroundTint="@color/colorPrimaryDark"/>
-
-    <Button
-        android:text="@string/boat_4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/boat_three"
-        android:layout_alignStart="@+id/boat_three"
-        android:id="@+id/boat_four"
-        android:backgroundTint="@color/colorPrimaryDark"/>
-
-    <Button
-        android:text="@string/boat_5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/boat_four"
-        android:layout_alignStart="@+id/boat_four"
-        android:id="@+id/boat_five"
-        android:backgroundTint="@color/colorPrimaryDark"/>
-
-    <Button
-        android:text="@string/boat_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:id="@+id/boat_one"
-        android:backgroundTint="@color/colorAccent"
-        android:layout_above="@+id/tableLayout"
-        android:layout_alignParentEnd="true"/>
+    <fragment android:name="ggr.tpl7.BoatListFragment"
+              android:id="@+id/boat_list_fragment_lineup"
+              android:layout_width="130dp"
+              android:layout_height="wrap_content"
+              tools:layout="@layout/list_item_boat"
+              android:layout_above="@+id/tableLayout"
+              android:layout_alignParentEnd="true"
+              android:layout_marginBottom="11dp"
+              android:layout_alignParentTop="true"/>
 
     <TableLayout
         android:layout_width="wrap_content"

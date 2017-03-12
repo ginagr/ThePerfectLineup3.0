@@ -25,12 +25,20 @@
             android:parentActivityName=".AthleteListActivity">
         </activity>
         <activity android:name=".AthleteListActivity"
-                  android:label="Roster">
+                  android:label="The Perfect Lineup">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".BoatPagerActivity"
+            android:label="Roster"
+            android:parentActivityName=".AthleteListActivity">
+        </activity>
+        <activity android:name=".BoatListActivity"
+                  android:label="Lineup">
         </activity>
     </application>
 

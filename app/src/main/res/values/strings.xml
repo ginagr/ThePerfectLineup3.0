@@ -32,4 +32,15 @@
     <string name="boat_3">Boat 3</string>
     <string name="boat_2">Boat 2</string>
     <string name="boat_1">Boat 1</string>
+    <string name="boat_specs">Boat Specs</string>
+    <string name="delete_boat">Delete Boat</string>
+    <string-array name="boat_size_array">
+        <item>8+</item>
+        <item>4+</item>
+        <item>4x</item>
+        <item>2+</item>
+        <item>2x</item>
+        <item>1x</item>
+    </string-array>
+
 </resources>

@@ -47,14 +47,19 @@ public class AthleteLab {
         database.insert(AthleteTable.NAME, null, values);
     }
 
-    public List<Athlete> getAthletes() throws ParseException {
+    public List<Athlete> getAthletes(){
         List<Athlete> athlete = new ArrayList<>();
 
         AthleteCursorWrapper cursor = queryAthlete(null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            athlete.add(cursor.getAthlete());
+            try {
+                athlete.add(cursor.getAthlete());
+            } catch (ParseException e) {
+                Log.e("AthleteLab", "Could not get list of athletes");
+                return new ArrayList<Athlete>();
+            }
             cursor.moveToNext();
         }
         cursor.close();
@@ -62,7 +67,7 @@ public class AthleteLab {
         return athlete;
     }
 
-    public Athlete getAthlete(UUID id) throws ParseException {
+    public Athlete getAthlete(UUID id){
         AthleteCursorWrapper cursor = queryAthlete(
                 AthleteTable.Cols.UUID + " = ?",
                 new String[] { id.toString() }
@@ -70,11 +75,16 @@ public class AthleteLab {
 
         try {
             if (cursor.getCount() == 0) {
-                return null;
+                Log.e("AthleteLab", "Could not find athlete with id " + id);
+                return new Athlete();
             }
 
             cursor.moveToFirst();
             return cursor.getAthlete();
+        } catch (ParseException e) {
+            Log.e("AthleteLab", "Could not find athlete with id: " + id);
+            e.printStackTrace();
+            return new Athlete();
         } finally {
             cursor.close();
         }
@@ -113,7 +123,7 @@ public class AthleteLab {
         values.put(AthleteTable.Cols.UUID, athlete.getId().toString());
         values.put(AthleteTable.Cols.FIRSTNAME, athlete.getFirstName());
         values.put(AthleteTable.Cols.LASTNAME, athlete.getLastName());
-        values.put(AthleteTable.Cols.POSITION, athlete.getPosition());
+        values.put(AthleteTable.Cols.POSITION, athlete.getPosition().toString());
         values.put(AthleteTable.Cols.FEET, athlete.getFeet());
         values.put(AthleteTable.Cols.INCHES, athlete.getInches());
         values.put(AthleteTable.Cols.WEIGHT, athlete.getWeight());
@@ -121,6 +131,8 @@ public class AthleteLab {
         values.put(AthleteTable.Cols.TWOKSEC, athlete.getTwokSec());
         values.put(AthleteTable.Cols.CONTACT, athlete.getLinkContact());
         values.put(AthleteTable.Cols.INLINEUP, athlete.getInLineup());
+        values.put(AthleteTable.Cols.BOATUUID, athlete.getBoatId().toString());
+        values.put(AthleteTable.Cols.SEAT, athlete.getSeat());
 
         return values;
     }
@@ -141,44 +153,38 @@ public class AthleteLab {
     }
 
     public void deleteAthlete(UUID id){
-        try {
-            Athlete athlete  = getAthlete(id);
-            String sid = id.toString();
-            String whereClause = "_id" + "=?";
-            Log.d("", "Delete " + athlete.getFirstName());
-            database.delete(AthleteTable.NAME, AthleteTable.Cols.UUID + " = ?", new String[]{sid});
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Athlete athlete  = getAthlete(id);
+        String sid = id.toString();
+        String whereClause = "_id" + "=?";
+        Log.d("", "Delete " + athlete.getFirstName());
+        database.delete(AthleteTable.NAME, AthleteTable.Cols.UUID + " = ?", new String[]{sid});
     }
 
-    public void resetAthletesInLineup() throws ParseException {
-        List<Athlete> athletes = getAthletes();
-        for(int i = 0; i < athletes.size(); i++){
-            Athlete athlete = athletes.get(i);
-            athlete.setInLineup(false);
-            updateAthlete(athlete);
-        }
-    }
-
-    public List<Athlete> getAthletesByBoat(UUID boatID) throws ParseException {
+    public List<Athlete> getAthletesByBoat(UUID boatID){
         List<Athlete> athletes = new ArrayList<>();
+        List<Athlete> boatAthletes = new ArrayList<>();
+        Log.e("AthleteLab", "Getting athletes from boat " + boatID);
 
-        String selectQuery = "select * from " + AthleteTable.NAME + " at, "
-                + BoatTable.NAME + " bo, " + AthleteBoatTable.NAME + " ab where bo."
-                + BoatTable.Cols.UUID + " = '" + boatID + "'" + " AND bo." + BoatTable.Cols.UUID
-                + " = " + "ab." + AthleteBoatTable.Cols.BOATID + " AND at." + AthleteTable.Cols.UUID + " = "
-                + "tt." + AthleteBoatTable.Cols.ATHLETEID;
-
-        Log.e("AthleteLab", selectQuery);
-        AthleteCursorWrapper cursor = new AthleteCursorWrapper(database.rawQuery(selectQuery, null));
-
-        if (cursor.moveToFirst()) {
-            do {
-                athletes.add(cursor.getAthlete());
-            } while (cursor.moveToNext());
+        athletes = getAthletes();
+        for(int i = 0; i < athletes.size(); i++){
+            if(athletes.get(i).getBoatId().equals(boatID)){
+                boatAthletes.add(athletes.get(i));
+            }
         }
-        return athletes;
+        return boatAthletes;
+    }
+
+    public static Position toPosition(String pos){
+        if(pos.equals("Coxswain")){
+            return Position.COXSWAIN;
+        } else if(pos.equals("Both")){
+            return Position.BOTH;
+        } else if(pos.equals("Port")){
+            return Position.PORT;
+        } else if(pos.equals("Starboard")){
+            return Position.STARBOARD;
+        } else {
+            return Position.NONE;
+        }
     }
 }

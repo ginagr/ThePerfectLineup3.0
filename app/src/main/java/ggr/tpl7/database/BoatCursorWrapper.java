@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import ggr.tpl7.database.BoatDbSchema.BoatTable;
 import ggr.tpl7.model.Boat;
+import ggr.tpl7.model.BoatLab;
 
 public class BoatCursorWrapper extends CursorWrapper {
     public BoatCursorWrapper(Cursor cursor){
@@ -16,12 +17,14 @@ public class BoatCursorWrapper extends CursorWrapper {
 
     public Boat getBoat() throws ParseException {
         String uuid = getString(getColumnIndex(BoatTable.Cols.UUID));
-        int size = getInt(getColumnIndex(BoatTable.Cols.BOATSIZE));
+        String size = getString(getColumnIndex(BoatTable.Cols.BOATSIZE));
         int cox = getInt(getColumnIndex(BoatTable.Cols.COX));
         String name = getString(getColumnIndex(BoatTable.Cols.NAME));
+        int current = getInt(getColumnIndex(BoatTable.Cols.CURRENT));
 
         boolean isCox = (cox != 0);
-        Boat boat = new Boat(UUID.fromString(uuid), size, isCox, name);
+        Boat boat = new Boat(UUID.fromString(uuid), BoatLab.toBoatSize(size), isCox, name);
+        boat.setCurrent(current != 0);
 
         return boat;
 
