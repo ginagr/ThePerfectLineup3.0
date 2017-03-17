@@ -124,6 +124,9 @@ public class AthleteListFragment extends Fragment {
                 i.putExtra(EXTRA_CURRENT_BOAT, currBoatId);
                 startActivity(i);
                 return true;
+            case R.id.menu_item_update_roster:
+                i = new Intent(getActivity(), ReadExcel.class);
+                startActivity(i);
             default:
                 return super.onOptionsItemSelected(item);
         }

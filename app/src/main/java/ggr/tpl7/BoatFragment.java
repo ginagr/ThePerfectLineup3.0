@@ -105,6 +105,17 @@ public class BoatFragment extends Fragment implements View.OnClickListener, Adap
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         boatSizeSpinner.setAdapter(adapter);
 
+        if(!boat.getBoatSize().toString().equals(" ")){
+            int index = 0;
+
+            for (int i=0;i<boatSizeSpinner.getCount();i++){
+                if (boatSizeSpinner.getItemAtPosition(i).equals(boat.getBoatSize().toString())){
+                    index = i;
+                }
+            }
+            boatSizeSpinner.setSelection(index);
+        }
+
         boatSizeSpinner.setOnItemSelectedListener(this);
 
 
@@ -146,23 +157,23 @@ public class BoatFragment extends Fragment implements View.OnClickListener, Adap
     }
 
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.fragment_boat, menu);
-//    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_boat, menu);
+    }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.save_to_roster:
-//                Intent intent = new Intent(getActivity(), AthleteListActivity.class);
-//                startActivity(intent);
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save_to_boats:
+                Intent intent = new Intent(getActivity(), LineupActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     public void onClick(View v) {

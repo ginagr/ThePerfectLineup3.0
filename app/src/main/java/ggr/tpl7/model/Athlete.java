@@ -22,6 +22,7 @@ public class Athlete {
 
     public Athlete() {
         id = UUID.randomUUID();
+        inLineup = false;
     }
 
     public Athlete(UUID id, String firstName, String lastName) {

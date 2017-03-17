@@ -20,9 +20,12 @@ import ggr.tpl7.model.BoatLab;
 
 public class BoatPagerActivity extends AppCompatActivity {
     private static final String EXTRA_BOAT_ID = "ggr.tpl17.boat_id";
+    private static final String EXTRA_CURRENT_BOAT = "ggr.tpl17.current_boat";
 
     private ViewPager viewPager;
     private List<Boat> boats;
+
+    private UUID boatId;
 
     public static Intent newIntent(Context packageContext, UUID boatId) {
         Intent intent = new Intent(packageContext, BoatPagerActivity.class);
@@ -35,7 +38,7 @@ public class BoatPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boat_pager);
 
-        UUID boatId = (UUID) getIntent().getSerializableExtra(EXTRA_BOAT_ID);
+        boatId = (UUID) getIntent().getSerializableExtra(EXTRA_BOAT_ID);
 
         viewPager = (ViewPager) findViewById(R.id.activity_boat_pager_view_pager);
 
@@ -78,6 +81,14 @@ public class BoatPagerActivity extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, LineupActivity.class);
+      //  i.putExtra(EXTRA_CURRENT_BOAT, boatId);
+        startActivity(i);
+        super.onBackPressed();
     }
 
 }

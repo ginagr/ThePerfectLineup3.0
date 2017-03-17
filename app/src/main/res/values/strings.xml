@@ -34,6 +34,8 @@
     <string name="boat_1">Boat 1</string>
     <string name="boat_specs">Boat Specs</string>
     <string name="delete_boat">Delete Boat</string>
+    <string name="msg_errorretrieval">Error while retrieving files</string>
+    <string name="msg_noresults">No Results</string>
     <string-array name="boat_size_array">
         <item>8+</item>
         <item>4+</item>

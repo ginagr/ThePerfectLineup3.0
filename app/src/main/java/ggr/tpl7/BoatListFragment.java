@@ -23,6 +23,10 @@ import ggr.tpl7.model.BoatLab;
 
 public class BoatListFragment extends Fragment{
 
+    private static final String EXTRA_PORTS = "ggr.tpl17.ports";
+    private static final String EXTRA_STARBOARDS = "ggr.tpl17.starboards";
+    private static final String EXTRA_COXS = "ggr.tpl17.coxs";
+
     private static final String EXTRA_BOAT_ID = "ggr.tpl17.current_boat";
 
     private RecyclerView boatRecyclerView;
@@ -40,6 +44,8 @@ public class BoatListFragment extends Fragment{
         boatRecyclerView = (RecyclerView) view
                 .findViewById(R.id.boat_recycler_view);
         boatRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
 
         try {
             updateUI();
@@ -114,9 +120,7 @@ public class BoatListFragment extends Fragment{
                 case R.id.boat_button_fragment:
                     BoatLab.get(getActivity()).changeCurrentBoat(boat);
                     i = new Intent(getActivity(), LineupActivity.class);
-
                     i.putExtra(EXTRA_BOAT_ID, boat.getId());
-                   // LineupActivity.setCurrentBoat(boat);
                     Log.e("BoatListFragment", "Switching to boat with id: " + boat.getId() + "   " + boat.getName());
                     startActivity(i);
                     break;

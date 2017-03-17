@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="16dp">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Google Spreadsheet ID"
+        android:id="@+id/google_spreadsheet_url"
+        android:text="1gbUTxUunt3fFF_TOpr9ZDauSnFrJpDifOrhBdDbfcdI"
+        />
+
+    <Button
+        android:id="@+id/update_roster_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Roster"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/notification_text_view"/>
+    <Button
+        android:id="@+id/to_roster_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back to Roster"/>
+</LinearLayout>

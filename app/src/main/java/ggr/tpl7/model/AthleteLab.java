@@ -160,6 +160,14 @@ public class AthleteLab {
         database.delete(AthleteTable.NAME, AthleteTable.Cols.UUID + " = ?", new String[]{sid});
     }
 
+    public void deleteAthletes(){
+        Log.d("", "Deleting all athletes");
+        List<Athlete> tempAthlete = getAthletes();
+        for(int i = 0; i < tempAthlete.size(); i++){
+            deleteAthlete(tempAthlete.get(i).getId());
+        }
+    }
+
     public List<Athlete> getAthletesByBoat(UUID boatID){
         List<Athlete> athletes = new ArrayList<>();
         List<Athlete> boatAthletes = new ArrayList<>();

@@ -3,6 +3,11 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
         android:title="Roster">
     <item
+        android:id="@+id/menu_item_update_roster"
+        android:icon="@android:drawable/ic_popup_sync"
+        android:title="@string/new_athlete"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/menu_item_new_athlete"
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/new_athlete"
