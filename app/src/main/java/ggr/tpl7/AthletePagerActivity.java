@@ -39,7 +39,7 @@ public class AthletePagerActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.activity_athlete_pager_view_pager);
 
-        athletes = AthleteLab.get(this).getAthletes();
+        athletes = AthleteLab.get(this).getAthletes(null);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         viewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {

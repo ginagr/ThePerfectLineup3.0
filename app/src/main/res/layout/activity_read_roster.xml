@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:hint="Google Spreadsheet ID"
         android:id="@+id/google_spreadsheet_url"
-        android:text="1gbUTxUunt3fFF_TOpr9ZDauSnFrJpDifOrhBdDbfcdI"
+        android:text="1mZQYPOxlyV82Zs1p21A4hpYt4l2ngbUseoRH_Mbk5ik"
         />
 
     <Button

@@ -47,10 +47,10 @@ public class AthleteLab {
         database.insert(AthleteTable.NAME, null, values);
     }
 
-    public List<Athlete> getAthletes(){
+    public List<Athlete> getAthletes(String order){
         List<Athlete> athlete = new ArrayList<>();
 
-        AthleteCursorWrapper cursor = queryAthlete(null, null);
+        AthleteCursorWrapper cursor = queryAthlete(null, null, order);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -70,7 +70,8 @@ public class AthleteLab {
     public Athlete getAthlete(UUID id){
         AthleteCursorWrapper cursor = queryAthlete(
                 AthleteTable.Cols.UUID + " = ?",
-                new String[] { id.toString() }
+                new String[] { id.toString() },
+                null
         );
 
         try {
@@ -137,7 +138,7 @@ public class AthleteLab {
         return values;
     }
 
-    private AthleteCursorWrapper queryAthlete(String whereClause, String[] whereArgs) {
+    private AthleteCursorWrapper queryAthlete(String whereClause, String[] whereArgs, String orderBy) {
         Cursor cursor = database.query(
                     AthleteTable.NAME,
                     null, // Columns - null selects all columns
@@ -145,7 +146,7 @@ public class AthleteLab {
                     whereArgs,
                     null, // groupBy
                     null, // having
-                    null  // orderBy\
+                    orderBy  // orderBy\
 
             );
 
@@ -162,7 +163,7 @@ public class AthleteLab {
 
     public void deleteAthletes(){
         Log.d("", "Deleting all athletes");
-        List<Athlete> tempAthlete = getAthletes();
+        List<Athlete> tempAthlete = getAthletes(null);
         for(int i = 0; i < tempAthlete.size(); i++){
             deleteAthlete(tempAthlete.get(i).getId());
         }
@@ -173,7 +174,7 @@ public class AthleteLab {
         List<Athlete> boatAthletes = new ArrayList<>();
         Log.e("AthleteLab", "Getting athletes from boat " + boatID);
 
-        athletes = getAthletes();
+        athletes = getAthletes(null);
         for(int i = 0; i < athletes.size(); i++){
             if(athletes.get(i).getBoatId().equals(boatID)){
                 boatAthletes.add(athletes.get(i));
@@ -195,4 +196,5 @@ public class AthleteLab {
             return Position.NONE;
         }
     }
+
 }

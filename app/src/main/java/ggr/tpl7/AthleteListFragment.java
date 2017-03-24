@@ -1,5 +1,6 @@
 package ggr.tpl7;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -9,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,7 +18,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.QuickContactBadge;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,6 +29,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.UUID;
 
+import ggr.tpl7.database.AthleteDbSchema;
 import ggr.tpl7.model.Athlete;
 import ggr.tpl7.model.AthleteLab;
 
@@ -37,7 +42,7 @@ public class AthleteListFragment extends Fragment {
     private static final String EXTRA_CURRENT_BOAT = "ggr.tpl17.current_boat";
 
     private RecyclerView athleteRecyclerView;
-    private AthleteAdapter adapter;
+    protected AthleteAdapter adapter;
     private boolean mSubtitleVisible;
 
     private int athleteBoatPosition;
@@ -46,6 +51,10 @@ public class AthleteListFragment extends Fragment {
     private UUID currBoatId;
 
     private boolean fromRosterButton;
+
+    private Button alphabetical;
+    private Button notBoated;
+    private int button; //TODO: change to other identifier
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,16 +71,48 @@ public class AthleteListFragment extends Fragment {
         } else {
             fromRosterButton = false;
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_athlete_list, container, false);
+        button = 1;
 
-        athleteRecyclerView = (RecyclerView) view
-                .findViewById(R.id.athlete_recycler_view);
+        alphabetical = (Button) view.findViewById(R.id.alphabetical_button);
+        notBoated = (Button) view.findViewById(R.id.not_boated_button);
+        alphabetical.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.e("AthleteListActivity", "Sorting alphabetically");
+                alphabetical.setPressed(true);
+                alphabetical.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.colorAccent));
+                notBoated.setPressed(false);
+                notBoated.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.colorPrimaryDark));
+                button = 1;
+                try {
+                    updateUI();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        notBoated.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.e("AthleteListActivity", "Sorting boated");
+                notBoated.setPressed(true);
+                notBoated.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.colorAccent));
+                alphabetical.setPressed(false);
+                alphabetical.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.colorPrimaryDark));
+                button = 0;
+                try {
+                    updateUI();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        athleteRecyclerView = (RecyclerView) view.findViewById(R.id.athlete_recycler_view);
         athleteRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         if (savedInstanceState != null) {
@@ -135,16 +176,22 @@ public class AthleteListFragment extends Fragment {
     private void updateSubtitle() throws ParseException {
         AthleteLab athleteLab = AthleteLab.get(getActivity());
         String athleteCount = "0";
-        athleteCount = "" + athleteLab.getAthletes().size();
+        athleteCount = "" + athleteLab.getAthletes(null).size();
         String subtitle = getString(R.string.subtitle_format, athleteCount);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setSubtitle(subtitle);
     }
 
-    private void updateUI() throws ParseException {
+    protected void updateUI() throws ParseException {
         AthleteLab athleteLab = AthleteLab.get(getActivity());
-        List<Athlete> athlete = athleteLab.getAthletes();
+
+        List<Athlete> athlete;
+        if(button == 0){
+           athlete = athleteLab.getAthletes(AthleteDbSchema.AthleteTable.Cols.INLINEUP +" ASC, " + AthleteDbSchema.AthleteTable.Cols.FIRSTNAME);
+        } else {
+            athlete = athleteLab.getAthletes(AthleteDbSchema.AthleteTable.Cols.FIRSTNAME +" ASC");
+        }
 
         if (adapter == null) {
             adapter = new AthleteAdapter(athlete);
@@ -191,6 +238,8 @@ public class AthleteListFragment extends Fragment {
                 inLineupImageView.setColorFilter(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
                 athleteRelativeLayout.setBackgroundColor(Color.parseColor("#d5d5d6"));
             }else {
+                inLineupImageView.setColorFilter(ContextCompat.getColor(getContext(),R.color.colorAccent));
+                athleteRelativeLayout.setBackgroundColor(Color.parseColor("#FFFAFFFF"));
                 inLineupImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

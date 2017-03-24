@@ -1,6 +1,8 @@
 package ggr.tpl7.model;
 
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Athlete {
 
@@ -85,7 +87,16 @@ public class Athlete {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        Pattern pattern = Pattern.compile("\\s");
+        Matcher matcher = pattern.matcher(firstName);
+        boolean found = matcher.find();
+        if(found){
+            String[] splited = firstName.split("\\s+");
+            this.firstName = splited[0];
+            this.lastName = splited[1];
+        } else {
+            this.firstName = firstName;
+        }
     }
 
     public String getLastName() {

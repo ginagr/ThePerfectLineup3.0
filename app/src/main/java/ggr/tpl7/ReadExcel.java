@@ -411,7 +411,7 @@ public class ReadExcel  extends Activity implements EasyPermissions.PermissionCa
             if (output == null || output.size() == 0) {
                 outputText.setText("No results returned.");
             } else {
-                List<Athlete> tempAthlete =  AthleteLab.get(getApplicationContext()).getAthletes();
+                List<Athlete> tempAthlete =  AthleteLab.get(getApplicationContext()).getAthletes(null);
                 AthleteLab.get(getApplicationContext()).deleteAthletes();
                 for(int i = 0; i < ports.size(); i++){
                     Athlete port = new Athlete();
@@ -431,7 +431,7 @@ public class ReadExcel  extends Activity implements EasyPermissions.PermissionCa
                     cox.setFirstName(coxs.get(i));
                     AthleteLab.get(getApplicationContext()).addAthlete(cox);
                 }
-                if(AthleteLab.get(getApplicationContext()).getAthletes().isEmpty()){
+                if(AthleteLab.get(getApplicationContext()).getAthletes(null).isEmpty()){
                     for(int i = 0; i < tempAthlete.size(); i++){
                         AthleteLab.get(getApplicationContext()).addAthlete(tempAthlete.get(i));
                     }
