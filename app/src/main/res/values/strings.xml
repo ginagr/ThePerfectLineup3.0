@@ -2,7 +2,7 @@
     <string name="app_name">The Perfect Lineup</string>
     <string name="new_athlete">New Athlete</string>
     <string name="settings">Settings</string>
-    <string name="subtitle_format">%1$s athletes</string>
+    <string name="subtitle_format"> </string>
     <string name="athlete_statistics">Athlete Statistics</string>
     <string name="name">First Name</string>
     <string name="link_athlete_contact">Link Athlete Contact</string>

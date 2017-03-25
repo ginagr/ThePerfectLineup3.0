@@ -17,6 +17,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:icon="@drawable/icon"
         >
         <activity android:name=".LineupActivity"
             android:label="Create Lineup">
@@ -37,8 +38,8 @@
         </activity>
         <activity
             android:name=".BoatPagerActivity"
-            android:label="Roster"
-            android:parentActivityName=".AthleteListActivity">
+            android:label="Boat Info"
+            android:parentActivityName=".LineupActivity">
         </activity>
         <activity android:name=".BoatListActivity"
                   android:label="Lineup">

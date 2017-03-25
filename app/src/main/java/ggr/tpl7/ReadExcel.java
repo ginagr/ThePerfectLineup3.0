@@ -50,11 +50,6 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class ReadExcel  extends Activity implements EasyPermissions.PermissionCallbacks {
 
-    private static final String EXTRA_PORTS = "ggr.tpl17.ports";
-    private static final String EXTRA_STARBOARDS = "ggr.tpl17.starboards";
-    private static final String EXTRA_COXS = "ggr.tpl17.coxs";
-
-
     GoogleAccountCredential mCredential;
     private Button callApiButton;
     private Button toRosterButton;
@@ -83,6 +78,7 @@ public class ReadExcel  extends Activity implements EasyPermissions.PermissionCa
         setContentView(R.layout.activity_read_roster);
 
         urlText = (EditText) findViewById(R.id.google_spreadsheet_url);
+        spreadsheetId = urlText.getText().toString();
         urlText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }

@@ -129,13 +129,13 @@
                 android:text="@string/coxswain"/>
         </RadioGroup>
 
-        <Button
-            android:id="@+id/link_athlete_contact_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:text="@string/link_athlete_contact" />
+        <!--<Button-->
+            <!--android:id="@+id/link_athlete_contact_button"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_marginRight="16dp"-->
+            <!--android:text="@string/link_athlete_contact" />-->
 
         <Button
             android:id="@+id/delete_athlete_button"

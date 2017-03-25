@@ -231,24 +231,24 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        final Intent pickContact = new Intent(Intent.ACTION_PICK,
-                ContactsContract.Contacts.CONTENT_URI);
-        linkButton = (Button)v.findViewById(R.id.link_athlete_contact_button);
-        linkButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivityForResult(pickContact, REQUEST_CONTACT);
-            }
-        });
+//        final Intent pickContact = new Intent(Intent.ACTION_PICK,
+//                ContactsContract.Contacts.CONTENT_URI);
+//        linkButton = (Button)v.findViewById(R.id.link_athlete_contact_button);
+//        linkButton.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                startActivityForResult(pickContact, REQUEST_CONTACT);
+//            }
+//        });
 
-        if (athlete.getLinkContact() != null) {
-            linkButton.setText(athlete.getLinkContact());
-        }
+//        if (athlete.getLinkContact() != null) {
+//            linkButton.setText(athlete.getLinkContact());
+//        }
 
         PackageManager packageManager = getActivity().getPackageManager();
-        if (packageManager.resolveActivity(pickContact,
-                PackageManager.MATCH_DEFAULT_ONLY) == null) {
-            linkButton.setEnabled(false);
-        }
+//        if (packageManager.resolveActivity(pickContact,
+//                PackageManager.MATCH_DEFAULT_ONLY) == null) {
+//            linkButton.setEnabled(false);
+//        }
 
 
         ImageButton mPhotoButton = (ImageButton) v.findViewById(R.id.athlete_camera);

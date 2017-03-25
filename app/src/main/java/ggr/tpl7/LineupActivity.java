@@ -2,6 +2,7 @@ package ggr.tpl7;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -62,16 +63,6 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
             defaultBoat.setCurrent(true);
             BoatLab.get(this).addBoat(defaultBoat);
         }
-
-//        FragmentManager fm = getSupportFragmentManager();
-//        Fragment fragment = new BoatListFragment();
-//
-//        if (fragment == null) {
-//            fragment = createFragment();
-//            fm.beginTransaction()
-//                    .add(R.id.fragment_container_boat1, fragment)
-//                    .commit();
-//        }
 
         athleteBoatPosition = getIntent().getIntExtra(EXTRA_BOAT_POSITION, -1);
         currAthleteId = (UUID) getIntent().getSerializableExtra(EXTRA_ATHLETE_ID);
@@ -151,15 +142,21 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
             for(int i = 1; i < currentBoat.getBoatSize().toInt(); i++) {
                 String text = i + " Seat";
                 texts[i].setText(text);
+                texts[i].setTypeface(null, Typeface.NORMAL);
+                lineupButtons[i].setText(" ");
             }
             if(currentBoat.isCox()){
                 texts[0].setText(Position.COXSWAIN.toString());
+                texts[0].setTypeface(null, Typeface.NORMAL);
+                lineupButtons[0].setText(" ");
             }
         } else { //at least one rower in boat
             for(int i = 0; i < athletesInBoat.size(); i++){
                 Athlete tempAthlete = athletesInBoat.get(i);
                 int seat = tempAthlete.getSeat();
                 texts[seat].setText(getAthleteName(tempAthlete));
+                texts[seat].setTypeface(null, Typeface.BOLD);
+                lineupButtons[seat].setText(getAthleteName(tempAthlete).charAt(0) + "");
                 //boatButtons[seat].setBackground(); TODO: figure out drawable
             }
         }
@@ -303,10 +300,14 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
     private void clearBoat(){
         String text;
         for(int i = 1; i < 9; i++){
-                text = i + " Seat";
-                texts[i].setText(text);
+            text = i + " Seat";
+            texts[i].setText(text);
+            texts[i].setTypeface(null, Typeface.NORMAL);
+            lineupButtons[i].setText(" ");
         }
         if(currentBoat.isCox()) {
+            texts[0].setTypeface(null, Typeface.NORMAL);
+            lineupButtons[0].setText(" ");
             text = "Coxswain";
             texts[0].setText(text);
         }
@@ -328,10 +329,20 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
                     addAthleteToSeat();
                 }
             } else { //no athlete in queue - push intent to list
-                Intent i = new Intent(this, AthleteListActivity.class);
-                i.putExtra(EXTRA_CURRENT_BOAT, currentBoatId);
-                i.putExtra(EXTRA_BOAT_POSITION, athleteBoatPosition);
-                startActivity(i);
+                List<Athlete> athletes = AthleteLab.get(this).getAthletesByBoat(currentBoatId);
+                boolean taken = false;
+                for (int i = 0; i < athletes.size(); i++) { //check if athlete already in seat
+                    if (athletes.get(i).getSeat() == athleteBoatPosition) {
+                        taken = true;
+                        i = athletes.size();
+                    }
+                }
+                if(!taken) {
+                    Intent i = new Intent(this, AthleteListActivity.class);
+                    i.putExtra(EXTRA_CURRENT_BOAT, currentBoatId);
+                    i.putExtra(EXTRA_BOAT_POSITION, athleteBoatPosition);
+                    startActivity(i);
+                }
             }
         } else { //already set seat, send to list for athlete
             Intent i = new Intent(this, AthleteListActivity.class);
