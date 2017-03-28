@@ -16,6 +16,7 @@ import android.widget.ImageView;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.UUID;
 
 import ggr.tpl7.model.AthleteLab;
 import ggr.tpl7.model.Boat;
@@ -23,18 +24,18 @@ import ggr.tpl7.model.BoatLab;
 
 public class BoatListFragment extends Fragment{
 
-    private static final String EXTRA_PORTS = "ggr.tpl17.ports";
-    private static final String EXTRA_STARBOARDS = "ggr.tpl17.starboards";
-    private static final String EXTRA_COXS = "ggr.tpl17.coxs";
+    private static final String EXTRA_ATHLETE_ID = "ggr.tpl17.athlete_id";
 
     private static final String EXTRA_BOAT_ID = "ggr.tpl17.current_boat";
 
     private RecyclerView boatRecyclerView;
     private BoatAdapter adapter;
+    private UUID athleteId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        athleteId = (UUID) getActivity().getIntent().getSerializableExtra(EXTRA_ATHLETE_ID);
     }
 
     @Override
@@ -44,7 +45,6 @@ public class BoatListFragment extends Fragment{
         boatRecyclerView = (RecyclerView) view
                 .findViewById(R.id.boat_recycler_view);
         boatRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
 
 
         try {
@@ -121,6 +121,9 @@ public class BoatListFragment extends Fragment{
                     BoatLab.get(getActivity()).changeCurrentBoat(boat);
                     i = new Intent(getActivity(), LineupActivity.class);
                     i.putExtra(EXTRA_BOAT_ID, boat.getId());
+                    if(athleteId != null) {
+                        i.putExtra(EXTRA_ATHLETE_ID, athleteId);
+                    }
                     Log.e("BoatListFragment", "Switching to boat with id: " + boat.getId() + "   " + boat.getName());
                     startActivity(i);
                     break;

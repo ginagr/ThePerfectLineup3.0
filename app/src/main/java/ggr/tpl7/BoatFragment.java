@@ -53,6 +53,7 @@ import ggr.tpl7.model.BoatSize;
 public class BoatFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private static final String ARG_BOAT_ID = "boat_id";
+    private static final String EXTRA_CURRENT_BOAT = "ggr.tpl17.current_boat";
 
     private Boat boat;
 
@@ -168,6 +169,7 @@ public class BoatFragment extends Fragment implements View.OnClickListener, Adap
         switch (item.getItemId()) {
             case R.id.save_to_boats:
                 Intent intent = new Intent(getActivity(), LineupActivity.class);
+               // intent.putExtra(EXTRA_CURRENT_BOAT, boat.getId());
                 startActivity(intent);
                 return true;
             default:

@@ -46,15 +46,15 @@
     <!--android:layout_toLeftOf="@id/list_item_athlete_twok_text_view"-->
 
     <ImageView
-        android:id="@+id/list_item_edit_athlete"
+        android:id="@+id/list_item_to_lineup"
         android:layout_width="55dp"
         android:layout_height="55dp"
+        android:layout_alignBottom="@+id/list_item_athlete_subtitle_text_view"
+        android:layout_alignParentEnd="true"
         android:gravity="center"
         android:padding="5dp"
-        android:tint="@color/colorPrimaryDark"
-        app:srcCompat="@drawable/edit"
-        android:layout_alignBottom="@+id/list_item_athlete_subtitle_text_view"
-        android:layout_alignParentEnd="true"/>
+        android:tint="@color/colorPrimary"
+        app:srcCompat="@drawable/export"/>
 
     <View
         android:layout_width="match_parent"

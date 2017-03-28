@@ -31,77 +31,87 @@
             android:layout_height="50dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/circle_empty"
-            android:textSize="24sp"/>
+            android:text="C"
+            android:textSize="24sp"
+            />
+
         <Button
             android:id="@+id/lineup_8_image_button_view"
-            android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
+            android:background="@drawable/circle_empty"
+            android:text="8"
             android:textSize="24sp"
             />
+
         <Button
             android:id="@+id/lineup_7_image_button_view"
-            android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
+            android:background="@drawable/circle_empty"
+            android:text="7"
             android:textSize="24sp"
             />
+
         <Button
             android:id="@+id/lineup_6_image_button_view"
-            android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
+            android:background="@drawable/circle_empty"
+            android:text="6"
             android:textSize="24sp"
             />
+
         <Button
             android:id="@+id/lineup_5_image_button_view"
-            android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
+            android:background="@drawable/circle_empty"
+            android:text="5"
             android:textSize="24sp"
             />
+
         <Button
             android:id="@+id/lineup_4_image_button_view"
-            android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
+            android:background="@drawable/circle_empty"
+            android:text="4"
             android:textSize="24sp"
             />
+
         <Button
             android:id="@+id/lineup_3_image_button_view"
-            android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
+            android:background="@drawable/circle_empty"
+            android:text="3"
             android:textSize="24sp"
             />
+
         <Button
             android:id="@+id/lineup_2_image_button_view"
-            android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
+            android:background="@drawable/circle_empty"
+            android:text="2"
             android:textSize="24sp"
             />
+
         <Button
             android:id="@+id/lineup_1_image_button_view"
-            android:text=""
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle_empty"
             android:layout_marginBottom="5dp"
+            android:background="@drawable/circle_empty"
+            android:text="1"
             android:textSize="24sp"
             />
 
@@ -198,19 +208,20 @@
         android:id="@+id/add_boat_button"
         android:layout_width="40dp"
         android:contentDescription="Add Boat"
-        android:layout_alignBottom="@+id/tableLayout"
-        android:layout_toStartOf="@+id/boat_list_fragment_lineup"
-        android:layout_below="@+id/boat_list_fragment_lineup"/>
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/boat_list_fragment_lineup"
+        />
 
-    <fragment android:name="ggr.tpl7.BoatListFragment"
-              android:id="@+id/boat_list_fragment_lineup"
-              android:layout_width="130dp"
-              android:layout_height="wrap_content"
-              tools:layout="@layout/list_item_boat"
-              android:layout_above="@+id/tableLayout"
-              android:layout_alignParentEnd="true"
-              android:layout_marginBottom="11dp"
-              android:layout_alignParentTop="true"/>
+    <fragment
+        android:id="@+id/boat_list_fragment_lineup"
+        android:name="ggr.tpl7.BoatListFragment"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tableLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/add_boat_button"
+        android:layout_marginBottom="10dp"
+        tools:layout="@layout/list_item_boat"/>
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -225,26 +236,44 @@
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
                 android:text="@string/current_rower"
-                android:textAppearance="@style/TextAppearance.AppCompat"/>
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="18sp"/>
         </TableRow>
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/current_rower_name"
-            android:text="@string/no_rower_selected"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+
+            <TextView
+                android:id="@+id/current_rower_name"
+                android:text="@string/no_rower_selected"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="16sp"/>
         </TableRow>
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/current_rower_side"
                 android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="16sp"/>
         </TableRow>
     </TableLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/boat_list_fragment_lineup"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/add_boat_button"
+        android:gravity="center_vertical"
+        android:text="Add Boat"
+        android:textSize="16dp"/>
 
 </RelativeLayout>

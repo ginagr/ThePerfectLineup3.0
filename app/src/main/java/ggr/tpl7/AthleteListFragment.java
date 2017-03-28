@@ -216,7 +216,7 @@ public class AthleteListFragment extends Fragment {
         private TextView nameTextView;
         private TextView sideTextView;
         private QuickContactBadge imageButtonView;
-        private ImageView editAthlete;
+        private ImageView toLineup;
         private Drawable mDrawable;
         private RelativeLayout athleteRelativeLayout;
 
@@ -229,7 +229,7 @@ public class AthleteListFragment extends Fragment {
             nameTextView = (TextView) itemView.findViewById(R.id.list_item_athlete_name_text_view);
             sideTextView = (TextView) itemView.findViewById(R.id.list_item_athlete_subtitle_text_view);
             imageButtonView = (QuickContactBadge) itemView.findViewById(R.id.user_image_icon);
-            editAthlete = (ImageView) itemView.findViewById(R.id.list_item_edit_athlete);
+            toLineup = (ImageView) itemView.findViewById(R.id.list_item_to_lineup);
             athleteRelativeLayout = (RelativeLayout) itemView.findViewById(R.id.list_item_relative_layout);
 
         }
@@ -244,11 +244,18 @@ public class AthleteListFragment extends Fragment {
                 athleteRelativeLayout.setBackgroundColor(Color.parseColor("#d5d5d6"));
             }else {
                 athleteRelativeLayout.setBackgroundColor(Color.parseColor("#FFFAFFFF"));
-                editAthlete.setOnClickListener(new View.OnClickListener() {
+                toLineup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = AthletePagerActivity.newIntent(getActivity(), athlete.getId());
-                        startActivity(intent);
+                        Intent i = new Intent(getActivity(), LineupActivity.class);
+                        i.putExtra(EXTRA_ATHLETE_ID, athlete.getId());
+                        i.putExtra(EXTRA_CURRENT_BOAT, currBoatId);
+                        if(fromRosterButton) {
+                            startActivity(i);
+                        } else {
+                            i.putExtra(EXTRA_BOAT_POSITION, athleteBoatPosition);
+                            startActivity(i);
+                        }
                     }
                 });
             }
@@ -258,14 +265,8 @@ public class AthleteListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(getActivity(), LineupActivity.class);
-            i.putExtra(EXTRA_ATHLETE_ID, athlete.getId());
-            i.putExtra(EXTRA_CURRENT_BOAT, currBoatId);
-            if(fromRosterButton){
-                startActivity(i);
-            }
-            i.putExtra(EXTRA_BOAT_POSITION, athleteBoatPosition);
-            startActivity(i);
+                    Intent intent = AthletePagerActivity.newIntent(getActivity(), athlete.getId());
+                    startActivity(intent);
         }
     }
 

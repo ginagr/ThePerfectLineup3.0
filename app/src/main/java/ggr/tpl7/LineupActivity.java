@@ -77,6 +77,13 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
             if(allBoats != null && !allBoats.isEmpty()){
                 currentBoat = allBoats.get(0);
                 currentBoatId = currentBoat.getId();
+                currentBoat.setCurrent(true);
+                BoatLab.get(this).updateBoat(currentBoat);
+                for(int i = 1; i < allBoats.size(); i++){
+                    //make sure there are not multiple current boats
+                    allBoats.get(i).setCurrent(false);
+                    BoatLab.get(this).updateBoat(allBoats.get(i));
+                }
                 setUp();
             } else {
                 //temp boat made that is an eight
@@ -143,12 +150,10 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
                 String text = i + " Seat";
                 texts[i].setText(text);
                 texts[i].setTypeface(null, Typeface.NORMAL);
-                lineupButtons[i].setText(" ");
             }
             if(currentBoat.isCox()){
                 texts[0].setText(Position.COXSWAIN.toString());
                 texts[0].setTypeface(null, Typeface.NORMAL);
-                lineupButtons[0].setText(" ");
             }
         } else { //at least one rower in boat
             for(int i = 0; i < athletesInBoat.size(); i++){
@@ -156,7 +161,6 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
                 int seat = tempAthlete.getSeat();
                 texts[seat].setText(getAthleteName(tempAthlete));
                 texts[seat].setTypeface(null, Typeface.BOLD);
-                lineupButtons[seat].setText(getAthleteName(tempAthlete).charAt(0) + "");
                 //boatButtons[seat].setBackground(); TODO: figure out drawable
             }
         }
@@ -303,11 +307,9 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
             text = i + " Seat";
             texts[i].setText(text);
             texts[i].setTypeface(null, Typeface.NORMAL);
-            lineupButtons[i].setText(" ");
         }
         if(currentBoat.isCox()) {
             texts[0].setTypeface(null, Typeface.NORMAL);
-            lineupButtons[0].setText(" ");
             text = "Coxswain";
             texts[0].setText(text);
         }
@@ -406,12 +408,13 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_goto_roster:
+                Log.e("LineupActivity", "Going back to roster");
                 Intent i = new Intent(this, AthleteListActivity.class);
                 i.putExtra(EXTRA_CURRENT_BOAT, currentBoatId);
                 startActivity(i);
                 return true;
+
             case R.id.clear_lineup:
-                final AthleteLab athleteLab = AthleteLab.get(this);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
                 alertDialogBuilder.setMessage("Are you sure you want to clear this lineup?");
                 alertDialogBuilder.setPositiveButton("Yes",

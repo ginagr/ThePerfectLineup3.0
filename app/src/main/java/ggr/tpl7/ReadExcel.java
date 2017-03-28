@@ -364,11 +364,11 @@ public class ReadExcel  extends Activity implements EasyPermissions.PermissionCa
                 for (List row : values) {
                     if(row.size() > 2) {
                         if (!row.get(0).toString().isEmpty()) {
-                            ports.add(row.get(0) + "");
+                            starboards.add(row.get(0) + "");
                             Log.e("ReadExcel", "Adding port : " + row.get(0).toString());
                         }
                         if (!row.get(1).toString().isEmpty()) {
-                            starboards.add(row.get(1) + "");
+                            ports.add(row.get(1) + "");
                             Log.e("ReadExcel", "Adding starboard : " + row.get(1).toString());
                         }
                         if (!row.get(2).toString().isEmpty()) {
@@ -377,16 +377,16 @@ public class ReadExcel  extends Activity implements EasyPermissions.PermissionCa
                         }
                     } else if(row.size() > 1){
                         if (!row.get(0).toString().isEmpty()) {
-                            ports.add(row.get(0) + "");
+                            starboards.add(row.get(0) + "");
                             Log.e("ReadExcel", "Adding port : " + row.get(0).toString());
                         }
                         if (!row.get(1).toString().isEmpty()) {
-                            starboards.add(row.get(1) + "");
+                            ports.add(row.get(1) + "");
                             Log.e("ReadExcel", "Adding starboard : " + row.get(1).toString());
                         }
                     } else {
                         if (!row.get(0).toString().isEmpty()) {
-                            ports.add(row.get(0) + "");
+                            starboards.add(row.get(0) + "");
                             Log.e("ReadExcel", "Adding port : " + row.get(0).toString());
                         }
                     }
