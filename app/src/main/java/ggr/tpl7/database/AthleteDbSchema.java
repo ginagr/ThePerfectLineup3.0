@@ -12,8 +12,7 @@ public class AthleteDbSchema {
             public static final String FEET = "feet";
             public static final String INCHES = "inches";
             public static final String WEIGHT = "weight";
-            public static final String TWOKMIN = "twokMin";
-            public static final String TWOKSEC = "twokSec";
+            public static final String TWOK = "twok";
             public static final String CONTACT = "contact";
             public static final String INLINEUP = "inLineup";
             public static final String BOATUUID = "boatId";

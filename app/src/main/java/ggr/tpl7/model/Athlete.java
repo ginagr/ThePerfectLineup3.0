@@ -1,5 +1,7 @@
 package ggr.tpl7.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,8 +16,7 @@ public class Athlete {
     private int feet;
     private int inches;
     private int weight;
-    private int twokMin;
-    private double twokSec; //TODO: change database
+    private Date twok;
     private String linkContact;
     private boolean inLineup = false;
     private UUID boatId;
@@ -25,6 +26,16 @@ public class Athlete {
     public Athlete() {
         id = UUID.randomUUID();
         inLineup = false;
+
+//        SimpleDateFormat ft = new SimpleDateFormat("HH:mm.ss");
+//        Date t;
+//        try {
+//            t = ft.parse("00:00.00");
+//            twok = t;
+//        } catch (Exception e) {
+//            twok = new Date();
+//            e.printStackTrace();
+//        }
     }
 
     public Athlete(UUID id, String firstName, String lastName) {
@@ -33,23 +44,23 @@ public class Athlete {
         this.lastName = lastName;
         position = Position.NONE;
         inLineup = false;
+
     }
 
     public Athlete(String firstName, String lastName, Position position
-    , int feet, int inches, int weight, int twokMin, double twokSec) {
+    , int feet, int inches, int weight, Date twok) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.position = position;
         this.feet = feet;
         this.inches = inches;
         this.weight = weight;
-        this.twokMin = twokMin;
-        this.twokSec = twokSec;
+        this.twok = twok;
         id = UUID.randomUUID();
         inLineup = false;
     }
 
-    public String[] getPhotoFilenames() {
+    String[] getPhotoFilenames() {
         String[] photoFilenames = new String[MAXPHOTOS];
 
         for (int n = 0; n < MAXPHOTOS; n++) {
@@ -118,7 +129,7 @@ public class Athlete {
         this.position = position;
     }
 
-    public int getFeet() {
+    int getFeet() {
         return feet;
     }
 
@@ -126,7 +137,7 @@ public class Athlete {
         this.feet = feet;
     }
 
-    public int getInches() {
+    int getInches() {
         return inches;
     }
 
@@ -134,7 +145,7 @@ public class Athlete {
         this.inches = inches;
     }
 
-    public int getWeight() {
+    int getWeight() {
         return weight;
     }
 
@@ -142,23 +153,18 @@ public class Athlete {
         this.weight = weight;
     }
 
-    public int getTwokMin() {
-        return twokMin;
+    public Date getTwok() {
+        if (twok == null){
+            return null;
+        }
+        return twok;
     }
 
-    public void setTwokMin(int twokMin) {
-        this.twokMin = twokMin;
+    public void setTwok(Date twok) {
+        this.twok = twok;
     }
 
-    public double getTwokSec() {
-        return twokSec;
-    }
-
-    public void setTwokSec(double twokSec) {
-        this.twokSec = twokSec;
-    }
-
-    public String getLinkContact() {
+    String getLinkContact() {
         return linkContact;
     }
 

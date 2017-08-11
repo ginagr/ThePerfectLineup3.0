@@ -1,101 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-
-    <ScrollView
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        <include layout="@layout/view_camera_and_title"
-                 android:layout_width="match_parent"
-                 />
+        <include layout="@layout/view_camera_and_title" />
 
         <TextView
+            style="?android:listSeparatorTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/athlete_statistics"
-            style="?android:listSeparatorTextViewStyle"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:textSize="16sp"/>
+            android:layout_marginTop="10dp"
+            android:text="@string/athlete_statistics"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/left_text_view_fragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="10sp">
+            <LinearLayout
+                android:id="@+id/left_text_view_fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:orientation="vertical">
 
+                <TextView
+                    style="?android:listSeparatorTextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@string/_2k_"
+                    android:textSize="18sp" />
                 <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:text="@string/_2k_"-->
-                    <!--style="?android:listSeparatorTextViewStyle"-->
-                    <!--android:textSize="18sp"-->
-                    <!--android:layout_height="40dp"/>-->
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:text="@string/_6k_"-->
-                    <!--style="?android:listSeparatorTextViewStyle"-->
-                    <!--android:textSize="18sp"/>-->
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:text="@string/weight"-->
-                    <!--style="?android:listSeparatorTextViewStyle"-->
-                    <!--android:textSize="18sp"/>-->
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:text="@string/height"-->
-                    <!--style="?android:listSeparatorTextViewStyle"-->
-                    <!--android:textSize="18sp"/>-->
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="17sp">
-
-            <!--<EditText-->
-                <!--android:id="@+id/twok_fragment_edit_text"-->
-                <!--android:layout_width="match_parent"-->
+                <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="40dp"-->
-                <!--android:hint="0:00.0"-->
-                <!--android:inputType="time"-->
-                <!--/>-->
-            <!--<EditText-->
+                <!--android:text="@string/_6k_"-->
+                <!--style="?android:listSeparatorTextViewStyle"-->
+                <!--android:textSize="18sp"/>-->
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:text="@string/weight"-->
+                <!--style="?android:listSeparatorTextViewStyle"-->
+                <!--android:textSize="18sp"/>-->
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:text="@string/height"-->
+                <!--style="?android:listSeparatorTextViewStyle"-->
+                <!--android:textSize="18sp"/>-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17sp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/twok_fragment_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="@string/_0_00_0"
+                    android:inputType="time" />
+                <!--<EditText-->
                 <!--android:id="@+id/sixk_fragment_edit_text"-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="40dp"-->
                 <!--android:hint="00:00.0"-->
                 <!--android:inputType="time"/>-->
-            <!--<EditText-->
+                <!--<EditText-->
                 <!--android:id="@+id/weight_fragment_edit_text"-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="40dp"-->
                 <!--android:hint="000.0lb"-->
                 <!--android:inputType="number|numberDecimal"/>-->
-            <!--<EditText-->
+                <!--<EditText-->
                 <!--android:id="@+id/height_fragment_edit_text"-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="40dp"-->
                 <!--android:hint="0'0''"/>-->
-        </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -111,31 +102,34 @@
                 android:id="@+id/starboard_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/starboard"/>
+                android:text="@string/starboard" />
+
             <RadioButton
                 android:id="@+id/port_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/port"/>
+                android:text="@string/port" />
+
             <RadioButton
                 android:id="@+id/both_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/both"/>
+                android:text="@string/both" />
+
             <RadioButton
                 android:id="@+id/cox_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/coxswain"/>
+                android:text="@string/coxswain" />
         </RadioGroup>
 
         <!--<Button-->
-            <!--android:id="@+id/link_athlete_contact_button"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="16dp"-->
-            <!--android:layout_marginRight="16dp"-->
-            <!--android:text="@string/link_athlete_contact" />-->
+        <!--android:id="@+id/link_athlete_contact_button"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="16dp"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:text="@string/link_athlete_contact" />-->
 
         <Button
             android:id="@+id/delete_athlete_button"
@@ -145,6 +139,5 @@
             android:layout_marginRight="16dp"
             android:text="@string/delete_athlete" />
 
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 </LinearLayout>

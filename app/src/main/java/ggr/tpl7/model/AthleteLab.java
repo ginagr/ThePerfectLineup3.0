@@ -8,16 +8,14 @@ import android.os.Environment;
 import android.util.Log;
 
 import ggr.tpl7.database.AthleteBaseHelper;
-import ggr.tpl7.database.AthleteBoatDbSchema;
 import ggr.tpl7.database.AthleteCursorWrapper;
 import ggr.tpl7.database.AthleteDbSchema.AthleteTable;
-import ggr.tpl7.database.BoatDbSchema.BoatTable;
-import ggr.tpl7.database.AthleteBoatDbSchema.AthleteBoatTable;
-import ggr.tpl7.database.BoatDbSchema;
 
 import java.io.File;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -58,7 +56,7 @@ public class AthleteLab {
                 athlete.add(cursor.getAthlete());
             } catch (ParseException e) {
                 Log.e("AthleteLab", "Could not get list of athletes");
-                return new ArrayList<Athlete>();
+                return new ArrayList<>();
             }
             cursor.moveToNext();
         }
@@ -68,13 +66,12 @@ public class AthleteLab {
     }
 
     public Athlete getAthlete(UUID id){
-        AthleteCursorWrapper cursor = queryAthlete(
-                AthleteTable.Cols.UUID + " = ?",
-                new String[] { id.toString() },
-                null
-        );
 
-        try {
+        try (AthleteCursorWrapper cursor = queryAthlete(
+                AthleteTable.Cols.UUID + " = ?",
+                new String[]{id.toString()},
+                null
+        )) {
             if (cursor.getCount() == 0) {
                 Log.e("AthleteLab", "Could not find athlete with id " + id);
                 return new Athlete();
@@ -86,8 +83,6 @@ public class AthleteLab {
             Log.e("AthleteLab", "Could not find athlete with id: " + id);
             e.printStackTrace();
             return new Athlete();
-        } finally {
-            cursor.close();
         }
     }
 
@@ -128,8 +123,7 @@ public class AthleteLab {
         values.put(AthleteTable.Cols.FEET, athlete.getFeet());
         values.put(AthleteTable.Cols.INCHES, athlete.getInches());
         values.put(AthleteTable.Cols.WEIGHT, athlete.getWeight());
-        values.put(AthleteTable.Cols.TWOKMIN, athlete.getTwokMin());
-        values.put(AthleteTable.Cols.TWOKSEC, athlete.getTwokSec());
+        values.put(AthleteTable.Cols.TWOK, formatDateToString(athlete.getTwok()));
         values.put(AthleteTable.Cols.CONTACT, athlete.getLinkContact());
         values.put(AthleteTable.Cols.INLINEUP, athlete.getInLineup());
         values.put(AthleteTable.Cols.BOATUUID, athlete.getBoatId().toString());
@@ -156,7 +150,7 @@ public class AthleteLab {
     public void deleteAthlete(UUID id){
         Athlete athlete  = getAthlete(id);
         String sid = id.toString();
-        String whereClause = "_id" + "=?";
+       // String whereClause = "_id" + "=?";
         Log.d("", "Delete " + athlete.getFirstName());
         database.delete(AthleteTable.NAME, AthleteTable.Cols.UUID + " = ?", new String[]{sid});
     }
@@ -170,7 +164,7 @@ public class AthleteLab {
     }
 
     public List<Athlete> getAthletesByBoat(UUID boatID){
-        List<Athlete> athletes = new ArrayList<>();
+        List<Athlete> athletes;
         List<Athlete> boatAthletes = new ArrayList<>();
         Log.e("AthleteLab", "Getting athletes from boat " + boatID);
 
@@ -184,16 +178,43 @@ public class AthleteLab {
     }
 
     public static Position toPosition(String pos){
-        if(pos.equals("Coxswain")){
-            return Position.COXSWAIN;
-        } else if(pos.equals("Both")){
-            return Position.BOTH;
-        } else if(pos.equals("Port")){
-            return Position.PORT;
-        } else if(pos.equals("Starboard")){
-            return Position.STARBOARD;
-        } else {
-            return Position.NONE;
+        switch (pos) {
+            case "Coxswain":
+                return Position.COXSWAIN;
+            case "Both":
+                return Position.BOTH;
+            case "Port":
+                return Position.PORT;
+            case "Starboard":
+                return Position.STARBOARD;
+            default:
+                return Position.NONE;
+        }
+    }
+
+    public static Date formatStringToDate(String date){
+        if(date == null || date.isEmpty()){
+            return null;
+        }
+        try {
+            return new SimpleDateFormat("H:mm.ss").parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static String formatDateToString(Date date){
+        if(date == null){
+            return "";
+        }
+
+        SimpleDateFormat ft = new SimpleDateFormat("H:mm.ss");
+        try {
+            return ft.format("0:00.00");
+
+        } catch (Exception e) {
+           return "";
         }
     }
 

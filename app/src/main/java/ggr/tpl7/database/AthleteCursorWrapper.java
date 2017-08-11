@@ -10,6 +10,8 @@ import ggr.tpl7.model.Athlete;
 import ggr.tpl7.database.AthleteDbSchema.AthleteTable;
 import ggr.tpl7.model.AthleteLab;
 
+import static ggr.tpl7.model.AthleteLab.formatStringToDate;
+
 public class AthleteCursorWrapper extends CursorWrapper {
     public AthleteCursorWrapper(Cursor cursor){
         super(cursor);
@@ -23,8 +25,7 @@ public class AthleteCursorWrapper extends CursorWrapper {
         int feet = getInt(getColumnIndex(AthleteTable.Cols.FEET));
         int inches = getInt(getColumnIndex(AthleteTable.Cols.INCHES));
         int weight = getInt(getColumnIndex(AthleteTable.Cols.WEIGHT));
-        int twokMin = getInt(getColumnIndex(AthleteTable.Cols.TWOKMIN));
-        int twokSec = getInt(getColumnIndex(AthleteTable.Cols.TWOKSEC));
+        String twok = getString(getColumnIndex(AthleteTable.Cols.TWOK));
         String contact = getString(getColumnIndex(AthleteTable.Cols.CONTACT));
         int inLineup = getInt(getColumnIndex(AthleteTable.Cols.INLINEUP));
         String boatuuid = getString(getColumnIndex(AthleteTable.Cols.BOATUUID));
@@ -35,14 +36,11 @@ public class AthleteCursorWrapper extends CursorWrapper {
         athlete.setFeet(feet);
         athlete.setInches(inches);
         athlete.setWeight(weight);
-        athlete.setTwokMin(twokMin);
-        athlete.setTwokSec(twokSec);
+        athlete.setTwok(formatStringToDate(twok));
         athlete.setLinkContact(contact);
         athlete.setInLineup(inLineup != 0);
         athlete.setBoatId(UUID.fromString(boatuuid));
         athlete.setSeat(seat);
-
-        //TODO: change 2k to time instead of ints
 
         return athlete;
 

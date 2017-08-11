@@ -36,6 +36,8 @@
     <string name="delete_boat">Delete Boat</string>
     <string name="msg_errorretrieval">Error while retrieving files</string>
     <string name="msg_noresults">No Results</string>
+    <string name="_0_00_0">0:00.0</string>
+    <string name="athlete_image">athlete image</string>
     <string-array name="boat_size_array">
         <item>8+</item>
         <item>4+</item>
