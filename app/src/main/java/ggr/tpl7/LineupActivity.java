@@ -32,6 +32,7 @@ import ggr.tpl7.model.BoatSize;
 import ggr.tpl7.model.Position;
 
 import static ggr.tpl7.R.string.avg_2k;
+import static ggr.tpl7.R.string.wt_adj_2k;
 import static ggr.tpl7.model.AthleteLab.formatDateToString;
 
 public class LineupActivity extends AppCompatActivity implements View.OnClickListener{
@@ -183,12 +184,20 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
 
     private void checkBoatStats(){
         long total = 0L;
+        long totalW = 0L;
         int count = 0;
+        int countW = 0;
+        double weight = 0;
         List<Athlete> athletesInBoat = AthleteLab.get(this).getAthletesByBoat(currentBoat.getId());
         for(int i = 0; i < athletesInBoat.size(); i++){
             if(athletesInBoat.get(i).getTwok() != null) {
                 total += athletesInBoat.get(i).getTwok().getTime() / 1000L;
                 count++;
+                if(athletesInBoat.get(i).getWeight() > 0){
+                    totalW += athletesInBoat.get(i).getTwok().getTime() / 1000L;
+                    countW++;
+                    weight += athletesInBoat.get(i).getWeight();
+                }
             }
         }
         if(total > 0) {
@@ -200,8 +209,26 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
            // curr2kTextView.setText("" + R.string.avg_2k + formatDateToString(ret));
         } else {
             TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_2k);
-            curr2kTextView.setText("" + getString(avg_2k) + " no data available");
+            curr2kTextView.setText("" + getString(avg_2k) + " no data");
         }
+
+        if(totalW > 0){
+            double wf = Math.pow((weight / (270 * countW)), .222);
+            long avg = totalW / countW;
+            long fin = avg * (long)wf;
+            Date ret = new Date(fin * 1000L);
+
+            TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_weight_adj_2k);
+            curr2kTextView.setText(getString(wt_adj_2k) + " " + formatDateToString(ret));
+        } else {
+            TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_weight_adj_2k);
+            curr2kTextView.setText("" + getString(wt_adj_2k) + " no data");
+        }
+//        Wf = [body weight in lbs / 270] raised to the power .222
+//        Corrected time = Wf x actual time (seconds)
+//        Corrected distance = actual distance / Wf
+
+
     }
 
     private void addAthleteToBox(){

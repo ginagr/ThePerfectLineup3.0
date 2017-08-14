@@ -15,7 +15,7 @@ public class Athlete {
     private Position position; //1 = Cox, 2 = both, 3 = port, 4 = starboard, 5 = none
     private int feet;
     private int inches;
-    private int weight;
+    private double weight;
     private Date twok;
     private String linkContact;
     private boolean inLineup = false;
@@ -145,11 +145,11 @@ public class Athlete {
         this.inches = inches;
     }
 
-    int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 

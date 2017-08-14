@@ -144,22 +144,26 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
             public void afterTextChanged(Editable s) { }
         });
 
-//        EditText weightField = (EditText) v.findViewById(R.id.weight_fragment_edit_text);
-//        try {
-//            weightField.setText(athlete.getWeight());
-//        }catch (Exception e) {
-//            Log.e("AthleteFragment", "Could not find athlete weight: " + athlete.getWeight());
-//        }
-//        weightField.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                athlete.setWeight(Integer.parseInt(s.toString()));
-//            }
-//            @Override
-//            public void afterTextChanged(Editable s) { }
-//        });
+        EditText weightField = (EditText) v.findViewById(R.id.weight_fragment_edit_text);
+        try {
+            weightField.setText(String.format("%s", athlete.getWeight()));
+        }catch (Exception e) {
+            Log.e("AthleteFragment", "Could not find athlete weight: " + athlete.getWeight());
+        }
+        weightField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.toString().length() > 0){
+                    athlete.setWeight(Double.parseDouble(s.toString()));
+                } else {
+                    athlete.setWeight(0);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
 
 //        EditText heightField = (EditText) v.findViewById(R.id.height_fragment_edit_text);
 //        if(athlete.getFeet() != 0) { heightField.setText(athlete.getFeet() +  "' " + athlete.getInches()); }

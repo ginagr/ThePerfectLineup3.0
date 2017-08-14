@@ -24,7 +24,7 @@ public class AthleteCursorWrapper extends CursorWrapper {
         String position = getString(getColumnIndex(AthleteTable.Cols.POSITION));
         int feet = getInt(getColumnIndex(AthleteTable.Cols.FEET));
         int inches = getInt(getColumnIndex(AthleteTable.Cols.INCHES));
-        int weight = getInt(getColumnIndex(AthleteTable.Cols.WEIGHT));
+        double weight = getDouble(getColumnIndex(AthleteTable.Cols.WEIGHT));
         String twok = getString(getColumnIndex(AthleteTable.Cols.TWOK));
         String contact = getString(getColumnIndex(AthleteTable.Cols.CONTACT));
         int inLineup = getInt(getColumnIndex(AthleteTable.Cols.INLINEUP));

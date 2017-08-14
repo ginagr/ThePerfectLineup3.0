@@ -43,12 +43,12 @@
                 <!--android:text="@string/_6k_"-->
                 <!--style="?android:listSeparatorTextViewStyle"-->
                 <!--android:textSize="18sp"/>-->
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:text="@string/weight"-->
-                <!--style="?android:listSeparatorTextViewStyle"-->
-                <!--android:textSize="18sp"/>-->
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/weight"
+                style="?android:listSeparatorTextViewStyle"
+                android:textSize="18sp"/>
                 <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="40dp"-->
@@ -75,12 +75,12 @@
                 <!--android:layout_height="40dp"-->
                 <!--android:hint="00:00.0"-->
                 <!--android:inputType="time"/>-->
-                <!--<EditText-->
-                <!--android:id="@+id/weight_fragment_edit_text"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:hint="000.0lb"-->
-                <!--android:inputType="number|numberDecimal"/>-->
+                <EditText
+                android:id="@+id/weight_fragment_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="@string/_000_0lb"
+                android:inputType="number|numberDecimal"/>
                 <!--<EditText-->
                 <!--android:id="@+id/height_fragment_edit_text"-->
                 <!--android:layout_width="match_parent"-->
