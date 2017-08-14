@@ -18,7 +18,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.sql.Time;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,6 +30,9 @@ import ggr.tpl7.model.Boat;
 import ggr.tpl7.model.BoatLab;
 import ggr.tpl7.model.BoatSize;
 import ggr.tpl7.model.Position;
+
+import static ggr.tpl7.R.string.avg_2k;
+import static ggr.tpl7.model.AthleteLab.formatDateToString;
 
 public class LineupActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -115,6 +120,8 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
             seatChosen = false;
         }
 
+        checkBoatStats();
+
         Log.e("LineupActivity", "currentBoat in oncreate: " + currentBoat.getName());
     }
 
@@ -174,6 +181,28 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
         return name;
     }
 
+    private void checkBoatStats(){
+        long total = 0L;
+        int count = 0;
+        List<Athlete> athletesInBoat = AthleteLab.get(this).getAthletesByBoat(currentBoat.getId());
+        for(int i = 0; i < athletesInBoat.size(); i++){
+            if(athletesInBoat.get(i).getTwok() != null) {
+                total += athletesInBoat.get(i).getTwok().getTime() / 1000L;
+                count++;
+            }
+        }
+        if(total > 0) {
+            long avg = total / count;
+            Date ret = new Date(avg * 1000L);
+
+            TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_2k);
+            curr2kTextView.setText(getString(avg_2k) + " " + formatDateToString(ret));
+           // curr2kTextView.setText("" + R.string.avg_2k + formatDateToString(ret));
+        } else {
+            TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_2k);
+            curr2kTextView.setText("" + getString(avg_2k) + " no data available");
+        }
+    }
 
     private void addAthleteToBox(){
         String name = getAthleteName(currAthlete);

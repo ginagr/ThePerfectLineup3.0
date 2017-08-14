@@ -207,7 +207,7 @@
         app:srcCompat="@android:drawable/ic_input_add"
         android:id="@+id/add_boat_button"
         android:layout_width="40dp"
-        android:contentDescription="Add Boat"
+        android:contentDescription="@string/add_boat_icon"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/boat_list_fragment_lineup"
         />
@@ -222,6 +222,50 @@
         android:layout_below="@+id/add_boat_button"
         android:layout_marginBottom="10dp"
         tools:layout="@layout/list_item_boat"/>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/square"
+        android:padding="5dp"
+        android:id="@+id/tableLayoutStats"
+
+        android:layout_above="@+id/tableLayout"
+        android:layout_alignParentEnd="true">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/boats_stats"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="18sp"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/current_boat_2k"
+                android:text="@string/avg_2k"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="16sp"
+              />
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/current_boat_weight_adj_2k"
+                android:text="@string/wt_adj_2k"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="16sp"
+                />
+        </TableRow>
+    </TableLayout>
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -273,7 +317,7 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/add_boat_button"
         android:gravity="center_vertical"
-        android:text="Add Boat"
-        android:textSize="16dp"/>
+        android:text="@string/add_boat"
+        android:textSize="16sp"/>
 
 </RelativeLayout>

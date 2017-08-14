@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class AthleteLab {
@@ -197,23 +198,24 @@ public class AthleteLab {
             return null;
         }
         try {
-            return new SimpleDateFormat("H:mm.ss").parse(date);
+            return new SimpleDateFormat("mm:ss.S", Locale.US).parse(date);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    private static String formatDateToString(Date date){
+    public static String formatDateToString(Date date){
         if(date == null){
             return "";
         }
 
-        SimpleDateFormat ft = new SimpleDateFormat("H:mm.ss");
+        SimpleDateFormat ft = new SimpleDateFormat("mm:ss.S", Locale.US);
         try {
-            return ft.format("0:00.00");
+            return ft.format(date);
 
         } catch (Exception e) {
+            Log.e("AthleteLab", "Cannot format date " + date.toString() );
            return "";
         }
     }

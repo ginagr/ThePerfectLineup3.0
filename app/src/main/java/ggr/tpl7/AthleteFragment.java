@@ -19,6 +19,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,6 +41,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 import ggr.tpl7.model.Athlete;
@@ -118,7 +120,7 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
         });
 
         EditText twokField = (EditText) v.findViewById(R.id.twok_fragment_edit_text);
-        SimpleDateFormat sdf = new SimpleDateFormat( "HH:mm.ss" );
+        SimpleDateFormat sdf = new SimpleDateFormat( "mm:ss.S", Locale.US);
         if(athlete.getTwok() != null){
             String time = sdf.format(athlete.getTwok().getTime());
             twokField.setText(time);
@@ -128,12 +130,13 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 try {
-                    Date date =new SimpleDateFormat("H:mm.ss").parse(s.toString());
+                    s = "00:" + s;
+                    Date date =new SimpleDateFormat("HH:mm:ss.S", Locale.US).parse(s.toString());
                     athlete.setTwok(date);
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    Log.e("AthleteFragment", "Still formating 2k");
+                   // e.printStackTrace();
                 }
                 //TODO:set 2k also 6k
             }

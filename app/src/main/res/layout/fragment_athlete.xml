@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="@string/_0_00_0"
-                    android:inputType="time" />
+                    android:inputType="numberDecimal|date|time" />
                 <!--<EditText-->
                 <!--android:id="@+id/sixk_fragment_edit_text"-->
                 <!--android:layout_width="match_parent"-->
