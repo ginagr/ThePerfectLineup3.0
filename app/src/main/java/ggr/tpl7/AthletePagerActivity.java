@@ -18,7 +18,6 @@ import ggr.tpl7.model.AthleteLab;
 
 public class AthletePagerActivity extends AppCompatActivity {
     private static final String EXTRA_ATHLETE_ID = "ggr.tpl17.athlete_id";
-    private static final String EXTRA_ATHLETE_ARRAY = "ggr.tpl17.athlete_array";
 
     private ViewPager viewPager;
     private List<Athlete> athletes;
@@ -35,7 +34,6 @@ public class AthletePagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_athlete_pager);
 
         UUID athleteId = (UUID) getIntent().getSerializableExtra(EXTRA_ATHLETE_ID);
-        String[] boatAthletes = getIntent().getStringArrayExtra(EXTRA_ATHLETE_ARRAY);
 
         viewPager = (ViewPager) findViewById(R.id.activity_athlete_pager_view_pager);
 

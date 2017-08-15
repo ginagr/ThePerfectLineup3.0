@@ -230,7 +230,7 @@
         android:padding="5dp"
         android:id="@+id/tableLayoutStats"
 
-        android:layout_above="@+id/tableLayout"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true">
 
         <TableRow
@@ -267,46 +267,46 @@
         </TableRow>
     </TableLayout>
 
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/square"
-        android:padding="5dp"
-        android:id="@+id/tableLayout"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="12dp">
+    <!--<TableLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/square"-->
+        <!--android:padding="5dp"-->
+        <!--android:id="@+id/tableLayout"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_marginBottom="12dp">-->
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <!--<TableRow-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
 
-            <TextView
-                android:text="@string/current_rower"
-                android:textAppearance="@style/TextAppearance.AppCompat"
-                android:textSize="18sp"/>
-        </TableRow>
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            <!--<TextView-->
+                <!--android:text="@string/current_rower"-->
+                <!--android:textAppearance="@style/TextAppearance.AppCompat"-->
+                <!--android:textSize="18sp"/>-->
+        <!--</TableRow>-->
+        <!--<TableRow-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
 
-            <TextView
-                android:id="@+id/current_rower_name"
-                android:text="@string/no_rower_selected"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textSize="16sp"/>
-        </TableRow>
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            <!--<TextView-->
+                <!--android:id="@+id/current_rower_name"-->
+                <!--android:text="@string/no_rower_selected"-->
+                <!--android:textAppearance="@style/TextAppearance.AppCompat.Caption"-->
+                <!--android:textSize="16sp"/>-->
+        <!--</TableRow>-->
+        <!--<TableRow-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
 
-            <TextView
-                android:id="@+id/current_rower_side"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textSize="16sp"/>
-        </TableRow>
-    </TableLayout>
+            <!--<TextView-->
+                <!--android:id="@+id/current_rower_side"-->
+                <!--android:text=""-->
+                <!--android:textAppearance="@style/TextAppearance.AppCompat.Caption"-->
+                <!--android:textSize="16sp"/>-->
+        <!--</TableRow>-->
+    <!--</TableLayout>-->
 
     <TextView
         android:id="@+id/textView"

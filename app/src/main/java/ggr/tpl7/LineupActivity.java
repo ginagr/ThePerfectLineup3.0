@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,12 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -43,17 +40,13 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
 
     private boolean seatChosen;
 
-    private Button[] lineupButtons;
     private TextView[] texts;
-
-    private Button[] boatButtons;
 
     private int athleteBoatPosition;
     private UUID currAthleteId;
     private Athlete currAthlete;
     public UUID currentBoatId;
     public Boat currentBoat;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,11 +104,8 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
                 Log.e("LineupActivity", "Found athlete " + currAthlete.getFirstName());
                 seatChosen = true;
                 addAthleteToSeat();
-            } else { //put athlete info in box and wait for seat click
-                currAthlete = AthleteLab.get(this).getAthlete(currAthleteId);
-                Log.e("LineupActivity", "Found athlete " + currAthlete.getFirstName());
+            } else {
                 seatChosen = false;
-                addAthleteToBox();
             }
         } else {
             seatChosen = false;
@@ -132,8 +122,7 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
         currAthlete.setSeat(athleteBoatPosition);
         currAthlete.setInLineup(true);
         AthleteLab.get(this).updateAthlete(currAthlete);
-        Athlete temp = AthleteLab.get(this).getAthlete(currAthlete.getId());
-        Log.e("LINEUP", temp.getFirstName() + " in boat: " + temp.getBoatId());
+        seatChosen = false;
         populateBoat();
     }
 
@@ -206,7 +195,7 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
 
             TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_2k);
             curr2kTextView.setText(getString(avg_2k) + " " + formatDateToString(ret));
-           // curr2kTextView.setText("" + R.string.avg_2k + formatDateToString(ret));
+            // curr2kTextView.setText("" + R.string.avg_2k + formatDateToString(ret));
         } else {
             TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_2k);
             curr2kTextView.setText("" + getString(avg_2k) + " no data");
@@ -231,15 +220,6 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    private void addAthleteToBox(){
-        String name = getAthleteName(currAthlete);
-        TextView currNameTextView = (TextView) findViewById(R.id.current_rower_name);
-        currNameTextView.setText(name);
-
-        TextView currSideTextView = (TextView) findViewById(R.id.current_rower_side);
-        currSideTextView.setText(currAthlete.getPosition().toString());
-    }
-
     private void listen(int num, boolean cox){
         Button coxButton = (Button) findViewById(R.id.lineup_cox_image_button_view);
         Button eightButton = (Button) findViewById(R.id.lineup_8_image_button_view);
@@ -251,7 +231,7 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
         Button twoButton = (Button) findViewById(R.id.lineup_2_image_button_view);
         Button oneButton = (Button) findViewById(R.id.lineup_1_image_button_view);
 
-        lineupButtons = new Button[]{ coxButton, oneButton, twoButton, threeButton, fourButton,
+        Button[] lineupButtons = new Button[]{coxButton, oneButton, twoButton, threeButton, fourButton,
                 fiveButton, sixButton, sevenButton, eightButton};
 
         TextView coxText = (TextView) findViewById(R.id.lineup_cox_text_name_view);
@@ -265,7 +245,7 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
         TextView oneText = (TextView) findViewById(R.id.lineup_1_text_name_view);
 
         texts = new TextView[]{ coxText, oneText, twoText, threeText, fourText, fiveText, sixText,
-        sevenText, eightText };
+                sevenText, eightText };
 
         for(int i = num; i > 0 ; i--){
             lineupButtons[i].setOnClickListener(this);
@@ -371,38 +351,20 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void updateText(){
-        if(!seatChosen) { //not coming from seat click previously
-            if (currAthleteId != null) { //put already chosen athlete into seat
-                List<Athlete> athletes = AthleteLab.get(this).getAthletesByBoat(currentBoatId);
-                boolean taken = false;
-                for (int i = 0; i < athletes.size(); i++) { //check if athlete already in seat
-                    if (athletes.get(i).getSeat() == athleteBoatPosition) {
-                        alertChange(athletes.get(i));
-                        taken = true;
-                        i = athletes.size();
-                    }
-                }
-                if (!taken) { //No athlete in spot, put curr one there
-                    addAthleteToSeat();
-                }
-            } else { //no athlete in queue - push intent to list
-                List<Athlete> athletes = AthleteLab.get(this).getAthletesByBoat(currentBoatId);
-                boolean taken = false;
-                for (int i = 0; i < athletes.size(); i++) { //check if athlete already in seat
-                    if (athletes.get(i).getSeat() == athleteBoatPosition) {
-                        taken = true;
-                        i = athletes.size();
-                    }
-                }
-                if(!taken) {
-                    Intent i = new Intent(this, AthleteListActivity.class);
-                    i.putExtra(EXTRA_CURRENT_BOAT, currentBoatId);
-                    i.putExtra(EXTRA_BOAT_POSITION, athleteBoatPosition);
-                    startActivity(i);
-                }
+    private void updateText() {
+        List<Athlete> athletes = AthleteLab.get(this).getAthletesByBoat(currentBoatId);
+        boolean taken = false;
+        for (int i = 0; i < athletes.size(); i++) { //check if athlete already in seat
+            if (athletes.get(i).getSeat() == athleteBoatPosition) {
+                //  alertChange(athletes.get(i));
+                taken = true;
+                break;
             }
-        } else { //already set seat, send to list for athlete
+        }
+        if(taken) {
+            Toast.makeText(this,"Spot already taken",Toast.LENGTH_LONG).show();
+            //TODO: CREATE OPTIONS OF DELETE/CHANGE ATHLETE/SEE STATS
+        } else {
             Intent i = new Intent(this, AthleteListActivity.class);
             i.putExtra(EXTRA_CURRENT_BOAT, currentBoatId);
             i.putExtra(EXTRA_BOAT_POSITION, athleteBoatPosition);
@@ -412,31 +374,31 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
 
     private void alertChange(final Athlete oldAthlete) {
         final AthleteLab athleteLab = AthleteLab.get(this);
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setMessage("Are you sure you want to switch athletes?");
-            alertDialogBuilder.setPositiveButton("Yes",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            oldAthlete.setInLineup(false);
-                            oldAthlete.setBoatId(null);
-                            oldAthlete.setSeat(-1);
-                            athleteLab.updateAthlete(oldAthlete);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Are you sure you want to switch athletes?");
+        alertDialogBuilder.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        oldAthlete.setInLineup(false);
+                        oldAthlete.setBoatId(null);
+                        oldAthlete.setSeat(-1);
+                        athleteLab.updateAthlete(oldAthlete);
 
-                            addAthleteToSeat();
-                            populateBoat();
-                            seatChosen = false;
-                        }
-                    });
-            alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
+                        addAthleteToSeat();
+                        populateBoat();
+                        seatChosen = false;
+                    }
+                });
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
 
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -66,10 +66,10 @@ public class AthleteListFragment extends Fragment {
 
         currBoatId = (UUID) getActivity().getIntent().getSerializableExtra(EXTRA_CURRENT_BOAT);
 
-        if(athleteBoatPosition == -1 && currAthleteId == null && currBoatId == null){
-            fromRosterButton = true;
+        if(currBoatId != null){
+            fromRosterButton = athleteBoatPosition == -1;
         } else {
-            fromRosterButton = false;
+            fromRosterButton = true; //don't know where intent came from, but assuming roster
         }
     }
 
@@ -194,7 +194,7 @@ public class AthleteListFragment extends Fragment {
 
         List<Athlete> athlete;
         if(button == 0){
-           athlete = athleteLab.getAthletes(AthleteDbSchema.AthleteTable.Cols.INLINEUP +" ASC, " + AthleteDbSchema.AthleteTable.Cols.FIRSTNAME);
+            athlete = athleteLab.getAthletes(AthleteDbSchema.AthleteTable.Cols.INLINEUP +" ASC, " + AthleteDbSchema.AthleteTable.Cols.FIRSTNAME);
         } else {
             athlete = athleteLab.getAthletes(AthleteDbSchema.AthleteTable.Cols.FIRSTNAME +" ASC");
         }
@@ -216,7 +216,6 @@ public class AthleteListFragment extends Fragment {
         private TextView nameTextView;
         private TextView sideTextView;
         private QuickContactBadge imageButtonView;
-        private ImageView toLineup;
         private Drawable mDrawable;
         private RelativeLayout athleteRelativeLayout;
 
@@ -229,7 +228,6 @@ public class AthleteListFragment extends Fragment {
             nameTextView = (TextView) itemView.findViewById(R.id.list_item_athlete_name_text_view);
             sideTextView = (TextView) itemView.findViewById(R.id.list_item_athlete_subtitle_text_view);
             imageButtonView = (QuickContactBadge) itemView.findViewById(R.id.user_image_icon);
-            toLineup = (ImageView) itemView.findViewById(R.id.list_item_to_lineup);
             athleteRelativeLayout = (RelativeLayout) itemView.findViewById(R.id.list_item_relative_layout);
 
         }
@@ -242,22 +240,8 @@ public class AthleteListFragment extends Fragment {
 
             if(athlete.getInLineup()) {
                 athleteRelativeLayout.setBackgroundColor(Color.parseColor("#d5d5d6"));
-            }else {
+            } else {
                 athleteRelativeLayout.setBackgroundColor(Color.parseColor("#FFFAFFFF"));
-                toLineup.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(getActivity(), LineupActivity.class);
-                        i.putExtra(EXTRA_ATHLETE_ID, athlete.getId());
-                        i.putExtra(EXTRA_CURRENT_BOAT, currBoatId);
-                        if(fromRosterButton) {
-                            startActivity(i);
-                        } else {
-                            i.putExtra(EXTRA_BOAT_POSITION, athleteBoatPosition);
-                            startActivity(i);
-                        }
-                    }
-                });
             }
 
             //TODO:get image path
@@ -265,8 +249,16 @@ public class AthleteListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-                    Intent intent = AthletePagerActivity.newIntent(getActivity(), athlete.getId());
-                    startActivity(intent);
+            if(fromRosterButton) {
+                Intent intent = AthletePagerActivity.newIntent(getActivity(), athlete.getId());
+                startActivity(intent);
+            } else {
+                Intent i = new Intent(getActivity(), LineupActivity.class);
+                i.putExtra(EXTRA_ATHLETE_ID, athlete.getId());
+                i.putExtra(EXTRA_CURRENT_BOAT, currBoatId);
+                i.putExtra(EXTRA_BOAT_POSITION, athleteBoatPosition);
+                startActivity(i);
+            }
         }
     }
 

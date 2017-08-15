@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/list_item_relative_layout">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/list_item_relative_layout">
 
     <!--<Button-->
-        <!--android:id="@+id/list_item_athlete_image_button_view"-->
-        <!--android:text=""-->
-        <!--android:layout_width="60dp"-->
-        <!--android:layout_height="60dp"-->
-        <!--android:background="@drawable/circle_empty"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--/>-->
+    <!--android:id="@+id/list_item_athlete_image_button_view"-->
+    <!--android:text=""-->
+    <!--android:layout_width="60dp"-->
+    <!--android:layout_height="60dp"-->
+    <!--android:background="@drawable/circle_empty"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--/>-->
 
     <QuickContactBadge android:id="@+id/user_image_icon"
-                       android:layout_height="?android:attr/listPreferredItemHeight"
-                       android:layout_width="?android:attr/listPreferredItemHeight"
-                       android:scaleType="centerCrop"
-                       style="@style/quickContactBadgeStyle"
-                       android:src="@drawable/ic_contact_picture_holo_light"
-                       android:layout_alignParentLeft="true"/>
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_width="?android:attr/listPreferredItemHeight"
+        android:scaleType="centerCrop"
+        style="@style/quickContactBadgeStyle"
+        android:src="@drawable/ic_contact_picture_holo_light"
+        android:layout_alignParentLeft="true"/>
 
     <TextView
         android:id="@+id/list_item_athlete_name_text_view"
@@ -44,17 +44,6 @@
         android:padding="4dp"
         android:layout_toRightOf="@+id/user_image_icon"/>
     <!--android:layout_toLeftOf="@id/list_item_athlete_twok_text_view"-->
-
-    <ImageView
-        android:id="@+id/list_item_to_lineup"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_alignBottom="@+id/list_item_athlete_subtitle_text_view"
-        android:layout_alignParentEnd="true"
-        android:gravity="center"
-        android:padding="5dp"
-        android:tint="@color/colorPrimary"
-        app:srcCompat="@drawable/export"/>
 
     <View
         android:layout_width="match_parent"
