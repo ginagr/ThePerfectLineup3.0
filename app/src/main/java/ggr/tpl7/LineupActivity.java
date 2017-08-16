@@ -189,6 +189,33 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         }
+
+        getAvg2k(total, count);
+        getAvgW2k(totalW, countW, weight);
+    }
+
+    private void getAvgW2k(long totalW, int countW, double weight){
+        if(totalW > 0){
+            double wf = Math.pow((weight / (270 * countW)), .222);
+            double avg = totalW / countW;
+            double fin = (avg * wf) * 1000L;
+            Date ret = new Date((long)fin);
+
+            TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_weight_adj_2k);
+            curr2kTextView.setText(getString(wt_adj_2k) + " " + formatDateToString(ret));
+        } else {
+            TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_weight_adj_2k);
+            curr2kTextView.setText("" + getString(wt_adj_2k) + " no data");
+        }
+
+         /*
+         Wf = [body weight in lbs / 270] raised to the power .222
+         Corrected time = Wf x actual time (seconds)
+         Corrected distance = actual distance / Wf
+         */
+    }
+
+    private void getAvg2k(long total, int count){
         if(total > 0) {
             long avg = total / count;
             Date ret = new Date(avg * 1000L);
@@ -200,24 +227,6 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
             TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_2k);
             curr2kTextView.setText("" + getString(avg_2k) + " no data");
         }
-
-        if(totalW > 0){
-            double wf = Math.pow((weight / (270 * countW)), .222);
-            long avg = totalW / countW;
-            long fin = avg * (long)wf;
-            Date ret = new Date(fin * 1000L);
-
-            TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_weight_adj_2k);
-            curr2kTextView.setText(getString(wt_adj_2k) + " " + formatDateToString(ret));
-        } else {
-            TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_weight_adj_2k);
-            curr2kTextView.setText("" + getString(wt_adj_2k) + " no data");
-        }
-//        Wf = [body weight in lbs / 270] raised to the power .222
-//        Corrected time = Wf x actual time (seconds)
-//        Corrected distance = actual distance / Wf
-
-
     }
 
     private void listen(int num, boolean cox){
