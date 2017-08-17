@@ -172,19 +172,19 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void checkBoatStats(){
-        long total = 0L;
-        long totalW = 0L;
+        double total = 0;
+        double totalW = 0;
         int count = 0;
         int countW = 0;
         double weight = 0;
         List<Athlete> athletesInBoat = AthleteLab.get(this).getAthletesByBoat(currentBoat.getId());
         for(int i = 0; i < athletesInBoat.size(); i++){
             if(athletesInBoat.get(i).getTwok() != null) {
-                total += athletesInBoat.get(i).getTwok().getTime() / 1000L;
+                total += (athletesInBoat.get(i).getTwok().getMinutes() * 60) + athletesInBoat.get(i).getTwok().getSeconds();
                 count++;
                 if(athletesInBoat.get(i).getWeight() > 0){
-                    totalW += athletesInBoat.get(i).getTwok().getTime() / 1000L;
                     countW++;
+                    totalW += (athletesInBoat.get(i).getTwok().getMinutes() * 60) + athletesInBoat.get(i).getTwok().getSeconds();
                     weight += athletesInBoat.get(i).getWeight();
                 }
             }
@@ -194,11 +194,11 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
         getAvgW2k(totalW, countW, weight);
     }
 
-    private void getAvgW2k(long totalW, int countW, double weight){
+    private void getAvgW2k(double totalW, int countW, double weight){
         if(totalW > 0){
-            double wf = Math.pow((weight / (270 * countW)), .222);
-            double avg = totalW / countW;
-            double fin = (avg * wf) * 1000L;
+            double wf = Math.pow((weight / (270.0 * countW)), .222);
+            double avg = (totalW / countW) * wf;
+            double fin = avg * 1000.0;
             Date ret = new Date((long)fin);
 
             TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_weight_adj_2k);
@@ -215,14 +215,13 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
          */
     }
 
-    private void getAvg2k(long total, int count){
+    private void getAvg2k(double total, int count){
         if(total > 0) {
-            long avg = total / count;
-            Date ret = new Date(avg * 1000L);
+            double avg = (total / count) * 1000.0;
+            Date ret = new Date((long)avg);
 
             TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_2k);
             curr2kTextView.setText(getString(avg_2k) + " " + formatDateToString(ret));
-            // curr2kTextView.setText("" + R.string.avg_2k + formatDateToString(ret));
         } else {
             TextView curr2kTextView = (TextView) findViewById(R.id.current_boat_2k);
             curr2kTextView.setText("" + getString(avg_2k) + " no data");
