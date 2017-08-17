@@ -111,8 +111,6 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
             seatChosen = false;
         }
 
-        checkBoatStats();
-
         Log.e("LineupActivity", "currentBoat in oncreate: " + currentBoat.getName());
     }
 
@@ -161,6 +159,7 @@ public class LineupActivity extends AppCompatActivity implements View.OnClickLis
                 //boatButtons[seat].setBackground(); TODO: figure out drawable
             }
         }
+        checkBoatStats();
     }
 
     private String getAthleteName(Athlete a){
