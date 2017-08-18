@@ -68,4 +68,8 @@ public class Boat {
         this.name = name;
     }
 
+    public boolean isEmpty(){
+        return name.isEmpty();
+    }
+
 }

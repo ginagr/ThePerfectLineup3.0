@@ -149,6 +149,9 @@ public class BoatFragment extends Fragment implements View.OnClickListener, Adap
                 startActivity(intent);
                 return true;
             default:
+                if(boat.isEmpty()){
+                    BoatLab.get(getActivity()).deleteBoat(boat.getId());
+                }
                 return super.onOptionsItemSelected(item);
         }
     }

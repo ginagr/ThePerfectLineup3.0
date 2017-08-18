@@ -169,4 +169,8 @@ public class Athlete {
         this.inLineup = inLineup;
     }
 
+    public boolean isEmpty(){
+        return firstName.isEmpty() && lastName.isEmpty();
+    }
+
 }

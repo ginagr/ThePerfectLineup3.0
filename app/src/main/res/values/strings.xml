@@ -44,6 +44,10 @@
     <string name="add_boat">Add Boat</string>
     <string name="add_boat_icon">Add Boat</string>
     <string name="_000_0lb">000.0lb</string>
+    <string name="save_to_roster">Save To Roster</string>
+    <string name="clear_lineup">Clear Lineup</string>
+    <string name="go_to_roster">Go To Roster</string>
+    <string name="lineup">Lineup</string>
     <string-array name="boat_size_array">
         <item>8+</item>
         <item>4+</item>

@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/save_to_roster"
-        android:title="Save To Roster"
+        android:title="@string/save_to_roster"
         app:showAsAction="always"
         android:icon="@android:drawable/ic_menu_save"/>
 

@@ -280,9 +280,7 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
         mPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = null;
-
-                uri = Uri.fromFile(photo[0]);
+                Uri uri = Uri.fromFile(photo[0]);
                 captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 startActivityForResult(captureImage, REQUEST_PHOTO);
             }
@@ -313,6 +311,7 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
                     .query(contactUri, queryFields, null, null, null);
 
             try {
+                assert c != null;
                 if (c.getCount() == 0) {
                     return;
                 }
@@ -322,6 +321,7 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
                 athlete.setLinkContact(con);
                 linkButton.setText(con);
             } finally {
+                assert c != null;
                 c.close();
             }
         } else if (requestCode == REQUEST_PHOTO) {
@@ -356,7 +356,8 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
         options.inMutable=true;
         options.inPreferredConfig = Bitmap.Config.RGB_565;
 
-        Bitmap bitmap = new BitmapFactory().decodeFile(file.getPath(), options);
+        new BitmapFactory();
+        Bitmap bitmap = BitmapFactory.decodeFile(file.getPath(), options);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 60, byteArrayOutputStream);
 
         try {
@@ -379,6 +380,7 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
             e.printStackTrace();
         }
 
+        assert ei != null;
         int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
 
         switch(orientation) {
@@ -454,6 +456,11 @@ public class AthleteFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 return true;
             default:
+                //clicked back button
+                //check if empty
+                if(athlete.isEmpty()){
+                    AthleteLab.get(getActivity()).deleteAthlete(athlete.getId());
+                }
                 return super.onOptionsItemSelected(item);
         }
     }

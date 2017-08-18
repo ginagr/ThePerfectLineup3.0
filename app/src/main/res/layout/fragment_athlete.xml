@@ -3,141 +3,136 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <include layout="@layout/view_camera_and_title" />
+
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/athlete_statistics"
+        android:textSize="16sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <include layout="@layout/view_camera_and_title" />
-
-        <TextView
-            style="?android:listSeparatorTextViewStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/athlete_statistics"
-            android:textSize="16sp" />
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/left_text_view_fragment"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="10sp"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/left_text_view_fragment"
+            <TextView
+                style="?android:listSeparatorTextViewStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10sp"
-                android:orientation="vertical">
-
-                <TextView
-                    style="?android:listSeparatorTextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:text="@string/_2k_"
-                    android:textSize="18sp" />
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:text="@string/_6k_"-->
-                <!--style="?android:listSeparatorTextViewStyle"-->
-                <!--android:textSize="18sp"/>-->
-                <TextView
+                android:layout_height="40dp"
+                android:text="@string/_2k_"
+                android:textSize="18sp" />
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:text="@string/_6k_"-->
+            <!--style="?android:listSeparatorTextViewStyle"-->
+            <!--android:textSize="18sp"/>-->
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:text="@string/weight"
                 style="?android:listSeparatorTextViewStyle"
                 android:textSize="18sp"/>
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:text="@string/height"-->
-                <!--style="?android:listSeparatorTextViewStyle"-->
-                <!--android:textSize="18sp"/>-->
-            </LinearLayout>
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:text="@string/height"-->
+            <!--style="?android:listSeparatorTextViewStyle"-->
+            <!--android:textSize="18sp"/>-->
+        </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="17sp"
-                android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17sp"
+            android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/twok_fragment_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="@string/_0_00_0"
-                    android:inputType="numberDecimal|date|time" />
-                <!--<EditText-->
-                <!--android:id="@+id/sixk_fragment_edit_text"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:hint="00:00.0"-->
-                <!--android:inputType="time"/>-->
-                <EditText
+            <EditText
+                android:id="@+id/twok_fragment_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="@string/_0_00_0"
+                android:inputType="numberDecimal|date|time" />
+            <!--<EditText-->
+            <!--android:id="@+id/sixk_fragment_edit_text"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:hint="00:00.0"-->
+            <!--android:inputType="time"/>-->
+            <EditText
                 android:id="@+id/weight_fragment_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="@string/_000_0lb"
                 android:inputType="number|numberDecimal"/>
-                <!--<EditText-->
-                <!--android:id="@+id/height_fragment_edit_text"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:hint="0'0''"/>-->
-            </LinearLayout>
-
+            <!--<EditText-->
+            <!--android:id="@+id/height_fragment_edit_text"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:hint="0'0''"/>-->
         </LinearLayout>
 
-        <RadioGroup
-            android:id="@+id/radio_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/starboard_radio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/starboard" />
-
-            <RadioButton
-                android:id="@+id/port_radio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/port" />
-
-            <RadioButton
-                android:id="@+id/both_radio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/both" />
-
-            <RadioButton
-                android:id="@+id/cox_radio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/coxswain" />
-        </RadioGroup>
-
-        <!--<Button-->
-        <!--android:id="@+id/link_athlete_contact_button"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="16dp"-->
-        <!--android:layout_marginRight="16dp"-->
-        <!--android:text="@string/link_athlete_contact" />-->
-
-        <Button
-            android:id="@+id/delete_athlete_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:text="@string/delete_athlete" />
-
     </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/radio_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/starboard_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/starboard" />
+
+        <RadioButton
+            android:id="@+id/port_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/port" />
+
+        <RadioButton
+            android:id="@+id/both_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/both" />
+
+        <RadioButton
+            android:id="@+id/cox_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/coxswain" />
+    </RadioGroup>
+
+    <!--<Button-->
+    <!--android:id="@+id/link_athlete_contact_button"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="16dp"-->
+    <!--android:layout_marginRight="16dp"-->
+    <!--android:text="@string/link_athlete_contact" />-->
+
+    <Button
+        android:id="@+id/delete_athlete_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/delete_athlete" />
+
 </LinearLayout>
