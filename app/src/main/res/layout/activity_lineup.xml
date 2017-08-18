@@ -19,188 +19,199 @@
         android:orientation="horizontal"
         android:layout_marginStart="10sp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/image_boat_layout"
-        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/image_boat_layout"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/lineup_cox_image_button_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/circle_empty"
-            android:text="C"
-            android:textSize="24sp"
-            />
+            <Button
+                android:id="@+id/lineup_cox_image_button_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/circle_empty"
+                android:text="C"
+                android:textSize="24sp"
+                />
 
-        <Button
-            android:id="@+id/lineup_8_image_button_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/circle_empty"
-            android:text="8"
-            android:textSize="24sp"
-            />
+            <Button
+                android:id="@+id/lineup_8_image_button_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/circle_empty"
+                android:text="8"
+                android:textSize="24sp"
+                />
 
-        <Button
-            android:id="@+id/lineup_7_image_button_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/circle_empty"
-            android:text="7"
-            android:textSize="24sp"
-            />
+            <Button
+                android:id="@+id/lineup_7_image_button_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/circle_empty"
+                android:text="7"
+                android:textSize="24sp"
+                />
 
-        <Button
-            android:id="@+id/lineup_6_image_button_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/circle_empty"
-            android:text="6"
-            android:textSize="24sp"
-            />
+            <Button
+                android:id="@+id/lineup_6_image_button_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/circle_empty"
+                android:text="6"
+                android:textSize="24sp"
+                />
 
-        <Button
-            android:id="@+id/lineup_5_image_button_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/circle_empty"
-            android:text="5"
-            android:textSize="24sp"
-            />
+            <Button
+                android:id="@+id/lineup_5_image_button_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/circle_empty"
+                android:text="5"
+                android:textSize="24sp"
+                />
 
-        <Button
-            android:id="@+id/lineup_4_image_button_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/circle_empty"
-            android:text="4"
-            android:textSize="24sp"
-            />
+            <Button
+                android:id="@+id/lineup_4_image_button_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/circle_empty"
+                android:text="4"
+                android:textSize="24sp"
+                />
 
-        <Button
-            android:id="@+id/lineup_3_image_button_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/circle_empty"
-            android:text="3"
-            android:textSize="24sp"
-            />
+            <Button
+                android:id="@+id/lineup_3_image_button_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/circle_empty"
+                android:text="3"
+                android:textSize="24sp"
+                />
 
-        <Button
-            android:id="@+id/lineup_2_image_button_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/circle_empty"
-            android:text="2"
-            android:textSize="24sp"
-            />
+            <Button
+                android:id="@+id/lineup_2_image_button_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/circle_empty"
+                android:text="2"
+                android:textSize="24sp"
+                />
 
-        <Button
-            android:id="@+id/lineup_1_image_button_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/circle_empty"
-            android:text="1"
-            android:textSize="24sp"
-            />
+            <Button
+                android:id="@+id/lineup_1_image_button_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/circle_empty"
+                android:text="1"
+                android:textSize="24sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_toEndOf="@id/image_boat_layout">
+
+            <TextView
+                android:id="@+id/lineup_cox_text_name_view"
+                android:layout_width="match_parent"
+                android:text="@string/coxswain"
+                android:padding="13dp"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif"
+                android:layout_height="55dp"/>
+            <TextView
+                android:id="@+id/lineup_8_text_name_view"
+                android:layout_width="match_parent"
+                android:text="@string/_8_seat"
+                android:padding="13dp"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif"
+                android:layout_height="55dp"/>
+            <TextView
+                android:id="@+id/lineup_7_text_name_view"
+                android:layout_width="match_parent"
+                android:text="@string/_7_seat"
+                android:padding="13dp"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="16sp"
+                android:layout_height="55dp"/>
+
+            <TextView
+                android:id="@+id/lineup_6_text_name_view"
+                android:layout_width="match_parent"
+                android:text="@string/_6_seat"
+                android:padding="13dp"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="16sp"
+                android:layout_height="55dp"/>
+            <TextView
+                android:id="@+id/lineup_5_text_name_view"
+                android:layout_width="match_parent"
+                android:text="@string/_5_seat"
+                android:padding="13dp"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="16sp"
+                android:layout_height="55dp"/>
+            <TextView
+                android:id="@+id/lineup_4_text_name_view"
+                android:layout_width="match_parent"
+                android:text="@string/_4_seat"
+                android:padding="13dp"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="16sp"
+                android:layout_height="55dp"/>
+            <TextView
+                android:id="@+id/lineup_3_text_name_view"
+                android:layout_width="match_parent"
+                android:text="@string/_3_seat"
+                android:padding="13dp"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="16sp"
+                android:layout_height="55dp"/>
+            <TextView
+                android:id="@+id/lineup_2_text_name_view"
+                android:layout_width="match_parent"
+                android:text="@string/_2_seat"
+                android:padding="13dp"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="16sp"
+                android:layout_height="55dp"/>
+            <TextView
+                android:id="@+id/lineup_1_text_name_view"
+                android:layout_width="match_parent"
+                android:text="@string/_1_seat"
+                android:padding="13dp"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="16sp"
+                android:layout_height="55dp"/>
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_toEndOf="@id/image_boat_layout">
-
-        <TextView
-            android:id="@+id/lineup_cox_text_name_view"
-            android:layout_width="match_parent"
-            android:text="@string/coxswain"
-            android:padding="13dp"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif"
-            android:layout_height="55dp"/>
-        <TextView
-            android:id="@+id/lineup_8_text_name_view"
-            android:layout_width="match_parent"
-            android:text="@string/_8_seat"
-            android:padding="13dp"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif"
-            android:layout_height="55dp"/>
-        <TextView
-            android:id="@+id/lineup_7_text_name_view"
-            android:layout_width="match_parent"
-            android:text="@string/_7_seat"
-            android:padding="13dp"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="16sp"
-            android:layout_height="55dp"/>
-
-        <TextView
-            android:id="@+id/lineup_6_text_name_view"
-            android:layout_width="match_parent"
-            android:text="@string/_6_seat"
-            android:padding="13dp"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="16sp"
-            android:layout_height="55dp"/>
-        <TextView
-            android:id="@+id/lineup_5_text_name_view"
-            android:layout_width="match_parent"
-            android:text="@string/_5_seat"
-            android:padding="13dp"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="16sp"
-            android:layout_height="55dp"/>
-        <TextView
-            android:id="@+id/lineup_4_text_name_view"
-            android:layout_width="match_parent"
-            android:text="@string/_4_seat"
-            android:padding="13dp"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="16sp"
-            android:layout_height="55dp"/>
-        <TextView
-            android:id="@+id/lineup_3_text_name_view"
-            android:layout_width="match_parent"
-            android:text="@string/_3_seat"
-            android:padding="13dp"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="16sp"
-            android:layout_height="55dp"/>
-        <TextView
-            android:id="@+id/lineup_2_text_name_view"
-            android:layout_width="match_parent"
-            android:text="@string/_2_seat"
-            android:padding="13dp"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="16sp"
-            android:layout_height="55dp"/>
-        <TextView
-            android:id="@+id/lineup_1_text_name_view"
-            android:layout_width="match_parent"
-            android:text="@string/_1_seat"
-            android:padding="13dp"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="16sp"
-            android:layout_height="55dp"/>
-    </LinearLayout>
-
-    </LinearLayout>
+    <fragment
+        android:id="@+id/boat_list_fragment_lineup"
+        android:name="ggr.tpl7.BoatListFragment"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/list_item_boat"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        />
 
     <ImageView
         android:layout_height="40dp"
@@ -208,20 +219,19 @@
         android:id="@+id/add_boat_button"
         android:layout_width="40dp"
         android:contentDescription="@string/add_boat_icon"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/boat_list_fragment_lineup"
-        />
+        android:layout_above="@+id/tableLayoutStats"
+        android:layout_alignStart="@+id/boat_list_fragment_lineup" />
 
-    <fragment
-        android:id="@+id/boat_list_fragment_lineup"
-        android:name="ggr.tpl7.BoatListFragment"
-        android:layout_width="130dp"
+    <TextView
+        android:id="@+id/add_boat_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tableLayout"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/add_boat_button"
-        android:layout_marginBottom="10dp"
-        tools:layout="@layout/list_item_boat"/>
+        android:gravity="center_vertical"
+        android:text="@string/add_boat"
+        android:textSize="16sp"
+        android:layout_toEndOf="@+id/add_boat_button"
+        android:layout_alignBottom="@+id/add_boat_button"
+        android:layout_alignTop="@+id/add_boat_button" />
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -229,7 +239,6 @@
         android:background="@drawable/square"
         android:padding="5dp"
         android:id="@+id/tableLayoutStats"
-
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true">
 
@@ -252,7 +261,7 @@
                 android:text="@string/avg_2k"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textSize="16sp"
-              />
+                />
         </TableRow>
         <TableRow
             android:layout_width="wrap_content"
@@ -268,56 +277,46 @@
     </TableLayout>
 
     <!--<TableLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@drawable/square"-->
-        <!--android:padding="5dp"-->
-        <!--android:id="@+id/tableLayout"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_marginBottom="12dp">-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@drawable/square"-->
+    <!--android:padding="5dp"-->
+    <!--android:id="@+id/tableLayout"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentEnd="true"-->
+    <!--android:layout_marginBottom="12dp">-->
 
-        <!--<TableRow-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content">-->
+    <!--<TableRow-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content">-->
 
-            <!--<TextView-->
-                <!--android:text="@string/current_rower"-->
-                <!--android:textAppearance="@style/TextAppearance.AppCompat"-->
-                <!--android:textSize="18sp"/>-->
-        <!--</TableRow>-->
-        <!--<TableRow-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content">-->
+    <!--<TextView-->
+    <!--android:text="@string/current_rower"-->
+    <!--android:textAppearance="@style/TextAppearance.AppCompat"-->
+    <!--android:textSize="18sp"/>-->
+    <!--</TableRow>-->
+    <!--<TableRow-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content">-->
 
-            <!--<TextView-->
-                <!--android:id="@+id/current_rower_name"-->
-                <!--android:text="@string/no_rower_selected"-->
-                <!--android:textAppearance="@style/TextAppearance.AppCompat.Caption"-->
-                <!--android:textSize="16sp"/>-->
-        <!--</TableRow>-->
-        <!--<TableRow-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content">-->
+    <!--<TextView-->
+    <!--android:id="@+id/current_rower_name"-->
+    <!--android:text="@string/no_rower_selected"-->
+    <!--android:textAppearance="@style/TextAppearance.AppCompat.Caption"-->
+    <!--android:textSize="16sp"/>-->
+    <!--</TableRow>-->
+    <!--<TableRow-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content">-->
 
-            <!--<TextView-->
-                <!--android:id="@+id/current_rower_side"-->
-                <!--android:text=""-->
-                <!--android:textAppearance="@style/TextAppearance.AppCompat.Caption"-->
-                <!--android:textSize="16sp"/>-->
-        <!--</TableRow>-->
+    <!--<TextView-->
+    <!--android:id="@+id/current_rower_side"-->
+    <!--android:text=""-->
+    <!--android:textAppearance="@style/TextAppearance.AppCompat.Caption"-->
+    <!--android:textSize="16sp"/>-->
+    <!--</TableRow>-->
     <!--</TableLayout>-->
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/boat_list_fragment_lineup"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/add_boat_button"
-        android:gravity="center_vertical"
-        android:text="@string/add_boat"
-        android:textSize="16sp"/>
+
 
 </RelativeLayout>
