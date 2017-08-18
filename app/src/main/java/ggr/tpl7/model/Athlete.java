@@ -1,6 +1,5 @@
 package ggr.tpl7.model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -26,16 +25,6 @@ public class Athlete {
     public Athlete() {
         id = UUID.randomUUID();
         inLineup = false;
-
-//        SimpleDateFormat ft = new SimpleDateFormat("HH:mm.ss");
-//        Date t;
-//        try {
-//            t = ft.parse("00:00.00");
-//            twok = t;
-//        } catch (Exception e) {
-//            twok = new Date();
-//            e.printStackTrace();
-//        }
     }
 
     public Athlete(UUID id, String firstName, String lastName) {

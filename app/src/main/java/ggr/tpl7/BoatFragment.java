@@ -1,24 +1,12 @@
 package ggr.tpl7;
 
-import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,22 +18,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.UUID;
 
-import ggr.tpl7.model.Athlete;
-import ggr.tpl7.model.AthleteLab;
 import ggr.tpl7.model.Boat;
 import ggr.tpl7.model.BoatLab;
 import ggr.tpl7.model.BoatSize;
@@ -53,7 +30,6 @@ import ggr.tpl7.model.BoatSize;
 public class BoatFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private static final String ARG_BOAT_ID = "boat_id";
-    private static final String EXTRA_CURRENT_BOAT = "ggr.tpl17.current_boat";
 
     private Boat boat;
 
